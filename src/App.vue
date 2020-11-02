@@ -5,7 +5,7 @@
       dark
       app
     >
-      <v-toolbar-title>AEMOS</v-toolbar-title>
+      <v-toolbar-title id="navbar-app-name">AEMOS</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -31,3 +31,9 @@ export default Vue.extend({
   }),
 });
 </script>
+
+<style>
+  #navbar-app-name {
+    font-family: 'Orbitron', sans-serif;
+  }
+</style>
