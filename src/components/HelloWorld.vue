@@ -51,7 +51,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-3">
-          Important Links
+          Important Links REEEEEEEEEEEEEEEEEEE
         </h2>
 
         <v-row justify="center">
@@ -95,7 +95,7 @@
   import Vue from 'vue'
 
   export default Vue.extend({
-    name: 'HelloWorld',
+    name: 'HelloWorldo',
 
     data: () => ({
       ecosystem: [
