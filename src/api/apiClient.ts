@@ -8,7 +8,7 @@ const client = Contentful.createClient({
 });
 
 
-export const armiesShow = async () => {
+export const armiesIndex = async () => {
   try {
     const response = await client.getEntries({ 'content_type': 'army' });
     return response;
@@ -19,9 +19,19 @@ export const armiesShow = async () => {
 };
 
 
-export const unitsShow = async () => {
+export const unitsIndex = async (id) => {
   try {
-    const response = await client.getEntries({ 'content_type': 'unit' });
+    const response = await client.getEntries({ 'content_type': 'unit', 'links_to_entry': id });
+    return response;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const unitShow = async (id) => {
+  try {
+    const response = await client.getEntry(id);
     return response;
   } catch (error) {
     console.error(error);

@@ -81,6 +81,7 @@
       >
         <v-card
           outlined
+          class='unitCard'
           @click='pushToUnit(unit.sys.id)'
         >
 
@@ -106,8 +107,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import * as Contentful from 'contentful';
-  import { armiesShow, unitsShow } from '@/api/apiClient.ts';
+  import { armiesIndex, unitsIndex } from '@/api/apiClient.ts';
 
   export default Vue.extend({
     name: 'Army',
@@ -126,10 +126,10 @@
     },
 
     async mounted() {
-      const armyResponse = await armiesShow();
+      const armyResponse = await armiesIndex();
       this.army = armyResponse.items;
 
-      const unitResponse = await unitsShow();
+      const unitResponse = await unitsIndex(this.$route.params.id);
       this.units = unitResponse.items;
       console.log(unitResponse.items);
     },

@@ -7,14 +7,14 @@
         >
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>Unit Name</v-list-item-title>
+              <v-list-item-title>{{ unit.fields.name }}</v-list-item-title>
 
-              <v-list-item-subtitle class="text--primary">Role</v-list-item-subtitle>
+              <v-list-item-subtitle class="text--primary">{{ unit.fields.role }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
               <v-list-item-action-text>Cost</v-list-item-action-text>
-              <h1>5</h1>
+              <h1>{{ unit.fields.cost }}</h1>
             </v-list-item-action>
           </v-list-item>
         </v-banner>
@@ -35,7 +35,7 @@
               <v-list-item-action>
                 <v-item-text>Experience</v-item-text>
 
-                <h1>5</h1>
+                <h1>{{ unit.fields.experiencePoints }}</h1>
               </v-list-item-action>
 
               <v-divider
@@ -45,11 +45,11 @@
 
               <v-list-item-action>
                 <v-list-item-action-text>Crusade Points</v-list-item-action-text>
-                <h1>1</h1>
+                <h1>{{ unit.fields.crusadePoints }}</h1>
               </v-list-item-action>
             </v-row>
             <v-row>
-              <v-list-item>Rank</v-list-item>
+              <v-list-item>{{ unit.fields.rank }}</v-list-item>
             </v-row>
           </v-card-text>
         </v-card>
@@ -63,11 +63,21 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import { unitShow } from '@/api/apiClient.ts';
 
   export default Vue.extend({
     name: 'Unit',
 
-    data: () => ({
-    }),
+    data() {
+      return {
+        unit: null,
+      }
+    },
+
+    async mounted() {
+      const response = await unitShow(this.$route.params.id);
+      this.unit = response;
+      console.log(response);
+    },
   })
 </script>
