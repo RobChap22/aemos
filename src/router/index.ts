@@ -21,7 +21,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Army.vue')
   },
   {
-    path: '/army/:armyId/unit/:unitId',
+    path: '/unit/:id',
     name: 'Unit',
     component: () => import('../views/Unit.vue')
   },

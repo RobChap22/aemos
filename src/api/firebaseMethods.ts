@@ -59,8 +59,9 @@ export const readSingleArmy = (id) => {
 
 export const readUnits = (id) => {
   const units = [];
+  console.log(id);
 
-  return db.collection("armies").doc(id).collection("units")
+  return db.collection("units").where("armyRef", "==", `armies/${id}`)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -69,7 +70,6 @@ export const readUnits = (id) => {
           name: doc.data().name,
           supplyCost: doc.data().supplyCost,
           role: doc.data().role,
-          show: false,
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -86,7 +86,7 @@ export const readSingleUnit = (id) => {
   let unit = null;
 
 
-  return db.collection("units").doc(id)
+  return db.collectionGroup("units").doc(id)
     .get()
     .then(function(doc) {
       if (doc.exists) {
