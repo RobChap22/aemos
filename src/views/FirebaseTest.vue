@@ -55,7 +55,7 @@
 
     methods: {
       createNewArmy() {
-        createArmy(this.formName, this.formFaction);
+        createArmy({ name: this.formName, faction: this.formFaction});
       },
     },
 

@@ -8,16 +8,16 @@
       >
         <v-card
           outlined
-          @click='pushToArmy(army.sys.id)'
+          @click='pushToArmy(army.id)'
         >
 
           <v-list-item >
             <v-list-item-content>
               <v-list-item-title class="headline mb-1">
-                {{ army.fields.name }}
+                {{ army.name }}
               </v-list-item-title>
               <v-list-item-subtitle>
-                {{ army.fields.faction}}
+                {{ army.faction}}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { armiesIndex } from '@/api/apiClient.ts';
+import { readArmies } from "@/api/firebaseMethods";
 
 export default Vue.extend({
   name: 'Home',
@@ -48,10 +48,8 @@ export default Vue.extend({
   },
 
   async mounted() {
-    const response = await armiesIndex();
-    this.armies = response.items;
-
-    console.log(response.items);
+    const response = await readArmies();
+    this.armies = response;
   },
 
 });
