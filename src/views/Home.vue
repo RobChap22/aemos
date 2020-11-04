@@ -20,8 +20,6 @@
                 {{ army.fields.faction}}
               </v-list-item-subtitle>
             </v-list-item-content>
-
-            <v-list-item-text>{{ army.fields.battleTally }}</v-list-item-text>
           </v-list-item>
         </v-card>
       </v-col>

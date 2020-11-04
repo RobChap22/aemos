@@ -8,7 +8,26 @@
       >
         <v-card>
           <h1>{{ army.name }}</h1>
+          <p>{{ army.faction }}</p>
         </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col>
+        <v-form>
+          <v-text-field label='Name' v-model='formName'></v-text-field>
+          <v-autocomplete label='Faction' :items='factions' v-model='formFaction'></v-autocomplete>
+
+          <v-btn
+            type='submit'
+            color='primary'
+            @click='createNewArmy'
+          >
+            Create
+          </v-btn>
+
+        </v-form>
       </v-col>
     </v-row>
 
@@ -18,40 +37,31 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import firebase from "../firebaseInit";
+  import { readArmies, createArmy } from "@/api/firebaseMethods";
 
 
-  const db = firebase.firestore();
 
   export default Vue.extend({
     name: 'Firebase',
 
     data() {
       return {
-        armies: [],
+        armies: null,
+        factions: ['Imperium', 'Chaos', 'Aeldari', 'Tyranids', 'Orks', 'Necrons', 'Tau Empire'],
+        formName: '',
+        formFaction: '',
       }
     },
 
-    mounted() {
+    methods: {
+      createNewArmy() {
+        createArmy(this.formName, this.formFaction);
+      },
+    },
 
-        db.collection("armies")
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              console.log(doc);
-
-              this.armies.push({
-                id: doc.id,
-                name: doc.data().name,
-                faction: doc.data().faction,
-              });
-              console.log(doc.id, " => ", doc.data());
-            });
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
-
+    async mounted() {
+      const response = await readArmies();
+      this.armies = response;
     }
   })
 </script>
