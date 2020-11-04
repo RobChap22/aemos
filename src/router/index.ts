@@ -24,7 +24,12 @@ const routes: Array<RouteConfig> = [
     path: '/unit/:id',
     name: 'Unit',
     component: () => import('../views/Unit.vue')
-  }
+  },
+  {
+    path: '/fb',
+    name: 'Firebase',
+    component: () => import('../views/FirebaseTest.vue')
+  },
 ]
 
 const router = new VueRouter({
