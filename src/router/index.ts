@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import { authGuard } from "../auth/authGuard";
 import Home from '../views/Home.vue'
+
+
+import Profile from "../views/Profile.vue";
+
+
 
 Vue.use(VueRouter)
 
@@ -40,9 +46,17 @@ const routes: Array<RouteConfig> = [
     name: 'Firebase',
     component: () => import('../views/FirebaseTest.vue')
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    beforeEnter: authGuard,
+  },
 ]
 
 const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes
 })
 
