@@ -64,7 +64,11 @@ export const useAuth0 = ({
         }
       },
       /** Authenticates the user using the redirect method */
-      loginWithRedirect(o) {
+      async loginWithRedirect(o) {
+        if (!this.auth0Client) {
+          console.log('client is null');
+          return;
+        }
         return this.auth0Client.loginWithRedirect(o);
       },
       /** Returns all the claims present in the ID token */
@@ -88,11 +92,16 @@ export const useAuth0 = ({
     /** Use this lifecycle method to instantiate the SDK client */
     async created() {
       // Create a new instance of the SDK client using members of the given options object
-      this.auth0Client = await createAuth0Client({
-        ...options,
-        client_id: options.clientId,
-        redirect_uri: redirectUri
-      });
+      try {
+        this.auth0Client = await createAuth0Client({
+          ...options,
+          client_id: options.clientId,
+          redirect_uri: redirectUri
+        });
+      } catch (e) {
+        console.error(e)
+      }
+      console.log(this.auth0Client)
 
       try {
         // If the user is returning to the app after authentication..

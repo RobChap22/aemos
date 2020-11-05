@@ -9,6 +9,7 @@
 
       <v-spacer></v-spacer>
 
+      <router-link v-if="$auth.isAuthenticated" to="/profile" color='secondary'>Profile</router-link>
       <v-btn icon to="/">
         <v-icon>mdi-home</v-icon>
       </v-btn>

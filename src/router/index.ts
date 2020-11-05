@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { authGuard } from "../auth/authGuard";
+import { authGuard } from "../auth/authGuard.ts";
 import Home from '../views/Home.vue'
 
 
