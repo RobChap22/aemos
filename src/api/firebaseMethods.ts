@@ -85,8 +85,7 @@ export const readUnits = (id) => {
 export const readSingleUnit = (id) => {
   let unit = null;
 
-
-  return db.collectionGroup("units").doc(id)
+  return db.collection("units").doc(id)
     .get()
     .then(function(doc) {
       if (doc.exists) {
@@ -112,7 +111,7 @@ export const readSingleUnit = (id) => {
 
 
 export const createArmy = ({name, faction}) => {
-  db.collection("armies")
+  return db.collection("armies")
     .add({
       faction: faction,
       name: name,
@@ -122,8 +121,9 @@ export const createArmy = ({name, faction}) => {
       supplyLimit: 50,
       supplyUsed: 0
     })
-    .then(() => {
-      console.log("Document successfully written!");
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      return docRef.id
     })
     .catch((error) => {
       console.error("Error writing document: ", error);

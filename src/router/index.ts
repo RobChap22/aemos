@@ -26,6 +26,16 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Unit.vue')
   },
   {
+    path: '/createarmy',
+    name: 'CreateArmy',
+    component: () => import('../views/CreateArmy.vue')
+  },
+  {
+    path: '/createunit',
+    name: 'CreateUnit',
+    component: () => import('../views/CreateUnit.vue')
+  },
+  {
     path: '/fb',
     name: 'Firebase',
     component: () => import('../views/FirebaseTest.vue')

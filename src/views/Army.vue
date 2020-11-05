@@ -121,8 +121,8 @@
     },
 
     methods: {
-      pushToUnit(unitId) {
-        return this.$router.push({ name: 'Unit', params: { unitId } });
+      pushToUnit(id) {
+        return this.$router.push({ name: 'Unit', params: { id } });
       },
     },
 

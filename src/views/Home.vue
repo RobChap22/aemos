@@ -25,6 +25,24 @@
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col>
+        <v-card
+          outlined
+          @click='pushToCreateArmy'
+        >
+
+          <v-list-item >
+            <v-list-item-content>
+              <v-list-item-title class="headline mb-1">
+                Create
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-card>
+      </v-col>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -45,6 +63,9 @@ export default Vue.extend({
     pushToArmy(id) {
       return this.$router.push({ name: 'Army', params: { id } });
     },
+    pushToCreateArmy() {
+      return this.$router.push({ name: 'CreateArmy' })
+    }
   },
 
   async mounted() {
