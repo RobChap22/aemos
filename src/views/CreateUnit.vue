@@ -5,12 +5,19 @@
       <v-col>
         <v-form>
           <v-text-field label='Name' v-model='formName'></v-text-field>
-          <v-autocomplete label='Faction' :items='factions' v-model='formFaction'></v-autocomplete>
+          <v-autocomplete label='Battlefield Role' :items='roles' v-model='formRole'></v-autocomplete>
+          <v-text-field
+            label='Cost'
+            v-model="formCost"
+            hide-details
+            single-line
+            type="number"
+          />
 
           <v-btn
             type='submit'
             color='primary'
-            @click='createNewArmy'
+            @click='createNewUnit'
           >
             Create
           </v-btn>
@@ -25,7 +32,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { createArmy } from "@/api/firebaseMethods";
+  import { createUnit } from "@/api/firebaseMethods";
 
 
 
@@ -34,17 +41,17 @@
 
     data() {
       return {
-        armies: null,
-        factions: ['Imperium', 'Chaos', 'Aeldari', 'Tyranids', 'Orks', 'Necrons', 'Tau Empire'],
+        roles: ['HQ', 'Troops', 'Elite', 'Fast Attack', 'Heavy Support', 'Flyer', 'Lord of War'],
         formName: '',
-        formFaction: '',
+        formRole: '',
+        formCost: null,
       }
     },
 
     methods: {
-      async createNewArmy() {
-        const id = await createArmy({ name: this.formName, faction: this.formFaction});
-        return this.$router.push({ name: 'Army', params: { id } });
+      async createNewUnit() {
+        const id = await createUnit({ name: this.formName, role: this.formRole, supplyCost: this.formCost, armyId: this.$route.params.id });
+        return this.$router.push({ name: 'Unit', params: { id } });
       },
     },
   })

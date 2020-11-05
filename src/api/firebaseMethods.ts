@@ -61,7 +61,7 @@ export const readUnits = (id) => {
   const units = [];
   console.log(id);
 
-  return db.collection("units").where("armyRef", "==", `armies/${id}`)
+  return db.collection("units").where("armyRef", "==", id)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -70,6 +70,7 @@ export const readUnits = (id) => {
           name: doc.data().name,
           supplyCost: doc.data().supplyCost,
           role: doc.data().role,
+          armyRef: doc.data().armyRef,
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -92,8 +93,9 @@ export const readSingleUnit = (id) => {
         unit = {
           id: doc.id,
           name: doc.data().name,
-          supplyCost: doc.data().supplyCost,
+          supplyCost: parseInt(doc.data().supplyCost, 10),
           role: doc.data().role,
+          armyRef: doc.data().armyRef,
         }
         return unit;
         console.log("Document data:", doc.data());
@@ -124,6 +126,23 @@ export const createArmy = ({name, faction}) => {
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
       return docRef.id
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
+};
+
+
+export const createUnit = ({name, role, supplyCost, armyId}) => {
+  db.collection("units")
+    .add({
+      name: name,
+      role: role,
+      supplyCost: parseInt(supplyCost, 10),
+      armyRef: armyId
+    })
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
     })
     .catch((error) => {
       console.error("Error writing document: ", error);

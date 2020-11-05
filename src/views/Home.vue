@@ -65,7 +65,7 @@ export default Vue.extend({
     },
     pushToCreateArmy() {
       return this.$router.push({ name: 'CreateArmy' })
-    }
+    },
   },
 
   async mounted() {

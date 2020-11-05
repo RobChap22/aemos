@@ -57,6 +57,12 @@
 
     </v-row>
 
+    <v-row>
+      <v-col>
+        <h2 @click='pushToArmy(unit.armyRef)' >Back to Roster</h2>
+      </v-col>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -72,6 +78,12 @@
       return {
         unit: null,
       }
+    },
+
+    methods: {
+      pushToArmy(id) {
+        return this.$router.push({ name: 'Army', params: { id } });
+      },
     },
 
     async mounted() {

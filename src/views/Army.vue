@@ -102,6 +102,25 @@
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col>
+        <v-card
+          outlined
+          class='unitCard'
+          @click="pushToCreateUnit(army.id)"
+        >
+          <v-list-item >
+            <v-list-item-content>
+              <v-list-item-title class="headline mb-1">
+                Add Unit
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+        </v-card>
+      </v-col>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -124,6 +143,9 @@
       pushToUnit(id) {
         return this.$router.push({ name: 'Unit', params: { id } });
       },
+      pushToCreateUnit(id) {
+        return this.$router.push({ name: 'CreateUnit', params: { id } })
+      }
     },
 
     async mounted() {
