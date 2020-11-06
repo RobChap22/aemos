@@ -8,7 +8,7 @@
           <v-autocomplete label='Battlefield Role' :items='roles' v-model='formRole'></v-autocomplete>
           <v-text-field
             label='Cost'
-            v-model="formCost"
+            v-model.number="formCost"
             hide-details
             single-line
             type="number"

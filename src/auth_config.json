@@ -2,5 +2,7 @@
 
 {
   "domain": "dev-l5ck47dr.au.auth0.com",
-  "clientId": "w3I4k0TPJTRaRcCAYJQla2mZycp7ypcx"
+  "clientId": "w3I4k0TPJTRaRcCAYJQla2mZycp7ypcx",
+  "audience": "https://api-baby.com",
+  "responseType": "id_token"
 }

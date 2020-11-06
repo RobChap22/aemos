@@ -6,7 +6,7 @@ import vuetify from './plugins/vuetify';
 
 
 // Import the Auth0 configuration
-import { domain, clientId } from "./auth_config.json";
+import { domain, clientId, audience, responseType } from "./auth_config.json";
 
 // Import the plugin here
 import { Auth0Plugin } from "./auth";
@@ -15,6 +15,8 @@ import { Auth0Plugin } from "./auth";
 Vue.use(Auth0Plugin, {
   domain,
   clientId,
+  audience,
+  responseType,
   onRedirectCallback: appState => {
     router.push(
       appState && appState.targetUrl

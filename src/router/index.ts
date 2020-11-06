@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 
 
 import Profile from "../views/Profile.vue";
+import ExternalApiView from "../views/ExternalApi.vue";
 
 
 
@@ -14,7 +15,8 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: authGuard,
   },
   {
     path: '/about',
@@ -24,22 +26,26 @@ const routes: Array<RouteConfig> = [
   {
     path: '/army/:id',
     name: 'Army',
-    component: () => import('../views/Army.vue')
+    component: () => import('../views/Army.vue'),
+    beforeEnter: authGuard,
   },
   {
     path: '/unit/:id',
     name: 'Unit',
-    component: () => import('../views/Unit.vue')
+    component: () => import('../views/Unit.vue'),
+    beforeEnter: authGuard,
   },
   {
     path: '/createarmy',
     name: 'CreateArmy',
-    component: () => import('../views/CreateArmy.vue')
+    component: () => import('../views/CreateArmy.vue'),
+    beforeEnter: authGuard,
   },
   {
     path: '/createunit/:id',
     name: 'CreateUnit',
-    component: () => import('../views/CreateUnit.vue')
+    component: () => import('../views/CreateUnit.vue'),
+    beforeEnter: authGuard,
   },
   {
     path: '/fb',
@@ -51,6 +57,12 @@ const routes: Array<RouteConfig> = [
     name: 'Profile',
     component: Profile,
     beforeEnter: authGuard,
+  },
+  {
+    path: "/external-api",
+    name: "external-api",
+    component: ExternalApiView,
+    beforeEnter: authGuard
   },
 ]
 

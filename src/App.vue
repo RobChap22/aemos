@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar
-      color="primary"
+      color="secondary"
       dark
       app
     >
@@ -9,7 +9,7 @@
 
       <v-spacer></v-spacer>
 
-      <router-link v-if="$auth.isAuthenticated" to="/profile" color='secondary'>Profile</router-link>
+      <router-link v-if="$auth.isAuthenticated" to="/profile">Profile</router-link>
       <v-btn icon to="/">
         <v-icon>mdi-home</v-icon>
       </v-btn>

@@ -5,10 +5,10 @@ const db = firebase.firestore();
 
 
 
-export const readArmies = () => {
+export const readArmies = (userId) => {
   const armies = [];
 
-  return db.collection("armies")
+  return db.collection("armies").where("userId", "==", userId)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -112,9 +112,10 @@ export const readSingleUnit = (id) => {
 
 
 
-export const createArmy = ({name, faction}) => {
+export const createArmy = ({name, faction, userId }) => {
   return db.collection("armies")
     .add({
+      userId: userId,
       faction: faction,
       name: name,
       requisition: 5,

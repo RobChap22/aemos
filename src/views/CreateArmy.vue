@@ -43,7 +43,7 @@
 
     methods: {
       async createNewArmy() {
-        const id = await createArmy({ name: this.formName, faction: this.formFaction});
+        const id = await createArmy({ name: this.formName, faction: this.formFaction, userId: this.$auth.user.sub });
         return this.$router.push({ name: 'Army', params: { id } });
       },
     },
