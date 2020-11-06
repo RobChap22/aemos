@@ -149,8 +149,8 @@
     },
 
     computed: {
-      army = (this.$route.params.id) => {
-        return this.$store.getters.getArmyById
+      army() {
+        return this.$store.getters.getArmyById(this.$route.params.id)
       },
     },
 
