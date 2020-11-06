@@ -16,6 +16,11 @@ export const readArmies = (userId) => {
           id: doc.id,
           name: doc.data().name,
           faction: doc.data().faction,
+          requisition: doc.data().requisition,
+          battlesWon: doc.data().battlesWon,
+          battleTally: doc.data().battleTally,
+          supplyLimit: doc.data().supplyLimit,
+          supplyUsed: doc.data().supplyUsed,
         });
         // console.log(doc.id, " => ", doc.data());
       });

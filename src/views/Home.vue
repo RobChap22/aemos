@@ -4,7 +4,7 @@
 
     <v-row>
       <v-col
-        v-for="(army, i) in armies"
+        v-for="(army, i) in $store.state.userArmies"
         :key="i"
         :cols="army.flex"
       >
@@ -89,9 +89,11 @@ export default Vue.extend({
     }
   },
 
-  async mounted() {
-    const response = await readArmies(this.$auth.user.sub);
-    this.armies = response;
+  mounted() {
+    this.$store.dispatch('setUserArmies', this.$auth.user.sub)
+
+    // const response = await readArmies(this.$auth.user.sub);
+    // this.armies = response;
   },
 
 });

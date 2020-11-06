@@ -134,7 +134,7 @@
 
     data() {
       return {
-        army: null,
+        // army: null,
         units: null,
       }
     },
@@ -148,9 +148,15 @@
       }
     },
 
+    computed: {
+      army = (this.$route.params.id) => {
+        return this.$store.getters.getArmyById
+      },
+    },
+
     async mounted() {
-      const armyResponse = await readSingleArmy(this.$route.params.id);
-      this.army = armyResponse;
+      // const armyResponse = await readSingleArmy(this.$route.params.id);
+      // this.army = armyResponse;
 
       const unitResponse = await readUnits(this.$route.params.id)
       this.units = unitResponse;
