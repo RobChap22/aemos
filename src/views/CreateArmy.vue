@@ -5,7 +5,7 @@
       <v-col>
         <v-form>
           <v-text-field label='Name' v-model='formName'></v-text-field>
-          <v-autocomplete label='Faction' :items='factions' v-model='formFaction'></v-autocomplete>
+          <v-autocomplete label='Faction' :items='$store.state.factions' v-model='formFaction'></v-autocomplete>
 
           <v-btn
             color='primary'
@@ -17,13 +17,6 @@
         </v-form>
       </v-col>
     </v-row>
-
-    <v-row>
-      <v-btn @click="showAuth">
-        SHOW USER
-      </v-btn>
-    </v-row>
-
   </v-container>
 </template>
 
@@ -39,8 +32,6 @@
 
     data() {
       return {
-        armies: null,
-        factions: ['Imperium', 'Chaos', 'Aeldari', 'Tyranids', 'Orks', 'Necrons', 'Tau Empire'],
         formName: '',
         formFaction: '',
       }
@@ -49,12 +40,9 @@
     methods: {
       async createNewArmy() {
         const id = await createArmy({ name: this.formName, faction: this.formFaction, userId: this.$auth.user.sub });
-        console.log("ID for new army is:" + id);
+        this.$store.dispatch('setUserArmies', this.$auth.user.sub)
         return this.$router.push({ name: 'Army', params: { id } });
       },
-      showAuth() {
-        console.log(this.$auth.user.sub);
-      }
     },
   })
 </script>

@@ -32,36 +32,6 @@ export const readArmies = (userId) => {
 };
 
 
-export const readSingleArmy = (id) => {
-  let army = null;
-
-  return db.collection("armies").doc(id)
-    .get()
-    .then(function(doc) {
-      if (doc.exists) {
-        army = {
-          id: doc.id,
-          name: doc.data().name,
-          faction: doc.data().faction,
-          requisition: doc.data().requisition,
-          battlesWon: doc.data().battlesWon,
-          battleTally: doc.data().battleTally,
-          supplyLimit: doc.data().supplyLimit,
-          supplyUsed: doc.data().supplyUsed,
-        }
-        return army;
-        console.log("Document data:", doc.data());
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-      }
-  })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-};
-
-
 export const readUnits = (id) => {
   const units = [];
 
@@ -84,36 +54,6 @@ export const readUnits = (id) => {
       console.log("Error getting documents: ", error);
     });
 };
-
-
-
-export const readSingleUnit = (id) => {
-  let unit = null;
-
-  return db.collection("units").doc(id)
-    .get()
-    .then(function(doc) {
-      if (doc.exists) {
-        unit = {
-          id: doc.id,
-          name: doc.data().name,
-          supplyCost: parseInt(doc.data().supplyCost, 10),
-          role: doc.data().role,
-          armyRef: doc.data().armyRef,
-        }
-        return unit;
-        console.log("Document data:", doc.data());
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-      }
-  })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-};
-
-
 
 
 export const createArmy = ({name, faction, userId }) => {

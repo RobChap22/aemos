@@ -127,17 +127,9 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { readSingleArmy, readUnits } from "@/api/firebaseMethods";
 
   export default Vue.extend({
     name: 'Army',
-
-    data() {
-      return {
-        // army: null,
-        units: null,
-      }
-    },
 
     methods: {
       pushToUnit(id) {
@@ -156,10 +148,6 @@
 
     mounted() {
       this.$store.dispatch('setArmyUnits', this.$route.params.id)
-
-
-      // const unitResponse = await readUnits(this.$route.params.id)
-      // this.units = unitResponse;
     },
   })
 </script>

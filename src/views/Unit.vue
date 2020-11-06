@@ -62,23 +62,15 @@
         <h2 @click='pushToArmy(unit.armyRef)' >Back to Roster</h2>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
 
 <script lang="ts">
   import Vue from 'vue'
-  import { readSingleUnit } from "@/api/firebaseMethods";
 
   export default Vue.extend({
     name: 'Unit',
-
-    data() {
-      return {
-        unit: null,
-      }
-    },
 
     methods: {
       pushToArmy(id) {
@@ -86,10 +78,10 @@
       },
     },
 
-    async mounted() {
-      const response = await readSingleUnit(this.$route.params.id);
-      this.unit = response;
-      console.log(response);
+    computed: {
+      unit() {
+        return this.$store.getters.getUnitById(this.$route.params.id)
+      },
     },
   })
 </script>

@@ -44,28 +44,14 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <v-row>
-      <v-btn @click="showAuth">
-        SHOW USER
-      </v-btn>
-    </v-row>
-
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { readArmies } from "@/api/firebaseMethods";
 
 export default Vue.extend({
   name: 'Home',
-
-  data() {
-    return {
-      armies: null,
-    }
-  },
 
   methods: {
     pushToArmy(id) {
@@ -74,26 +60,10 @@ export default Vue.extend({
     pushToCreateArmy() {
       return this.$router.push({ name: 'CreateArmy' })
     },
-    // Log the user in
-    login() {
-      this.$auth.loginWithRedirect();
-    },
-    // Log the user out
-    logout() {
-      this.$auth.logout({
-        returnTo: window.location.origin
-      });
-    },
-    showAuth() {
-      console.log(this.$auth.user.sub);
-    }
   },
 
   mounted() {
     this.$store.dispatch('setUserArmies', this.$auth.user.sub)
-
-    // const response = await readArmies(this.$auth.user.sub);
-    // this.armies = response;
   },
 
 });

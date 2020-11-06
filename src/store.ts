@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    roles: ['HQ', 'Troops', 'Elite', 'Fast Attack', 'Heavy Support', 'Flyer', 'Lord of War'],
+    factions: ['Imperium', 'Chaos', 'Aeldari', 'Tyranids', 'Orks', 'Necrons', 'Tau Empire'],
     userArmies: null,
     armyUnits: null,
   },
@@ -35,6 +37,9 @@ export default new Vuex.Store({
   getters: {
     getArmyById: (state) => (id) => {
       return state.userArmies.find(army => army.id === id)
-    }
+    },
+    getUnitById: (state) => (id) => {
+      return state.armyUnits.find(unit => unit.id === id)
+    },
   }
 })

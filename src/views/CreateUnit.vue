@@ -5,7 +5,7 @@
       <v-col>
         <v-form>
           <v-text-field label='Name' v-model='formName'></v-text-field>
-          <v-autocomplete label='Battlefield Role' :items='roles' v-model='formRole'></v-autocomplete>
+          <v-autocomplete label='Battlefield Role' :items='$store.state.roles' v-model='formRole'></v-autocomplete>
           <v-text-field
             label='Cost'
             v-model.number="formCost"
@@ -40,7 +40,6 @@
 
     data() {
       return {
-        roles: ['HQ', 'Troops', 'Elite', 'Fast Attack', 'Heavy Support', 'Flyer', 'Lord of War'],
         formName: '',
         formRole: '',
         formCost: null,
@@ -49,7 +48,13 @@
 
     methods: {
       async createNewUnit() {
-        const id = await createUnit({ name: this.formName, role: this.formRole, supplyCost: this.formCost, armyId: this.$route.params.id });
+        const id = await createUnit({
+          name: this.formName,
+          role: this.formRole,
+          supplyCost: this.formCost,
+          armyId: this.$route.params.id
+        });
+        this.$store.dispatch('setArmyUnits', this.$route.params.id)
         return this.$router.push({ name: 'Unit', params: { id } });
       },
     },
