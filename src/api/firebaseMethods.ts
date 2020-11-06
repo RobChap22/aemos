@@ -64,7 +64,6 @@ export const readSingleArmy = (id) => {
 
 export const readUnits = (id) => {
   const units = [];
-  console.log(id);
 
   return db.collection("units").where("armyRef", "==", id)
     .get()

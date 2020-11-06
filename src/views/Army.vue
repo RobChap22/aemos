@@ -75,7 +75,7 @@
 
     <v-row>
       <v-col
-        v-for="(unit, i) in units"
+        v-for="(unit, i) in $store.state.armyUnits"
         :key="i"
         :cols="unit.flex"
       >
@@ -154,12 +154,12 @@
       },
     },
 
-    async mounted() {
-      // const armyResponse = await readSingleArmy(this.$route.params.id);
-      // this.army = armyResponse;
+    mounted() {
+      this.$store.dispatch('setArmyUnits', this.$route.params.id)
 
-      const unitResponse = await readUnits(this.$route.params.id)
-      this.units = unitResponse;
+
+      // const unitResponse = await readUnits(this.$route.params.id)
+      // this.units = unitResponse;
     },
   })
 </script>
