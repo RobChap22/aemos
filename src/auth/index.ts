@@ -101,7 +101,6 @@ export const useAuth0 = ({
       } catch (e) {
         console.error(e)
       }
-      console.log(this.auth0Client)
 
       try {
         // If the user is returning to the app after authentication..

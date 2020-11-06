@@ -15,7 +15,6 @@
           />
 
           <v-btn
-            type='submit'
             color='primary'
             @click='createNewUnit'
           >

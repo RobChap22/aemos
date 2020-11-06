@@ -135,7 +135,7 @@ export const createArmy = ({name, faction, userId }) => {
 
 
 export const createUnit = ({name, role, supplyCost, armyId}) => {
-  db.collection("units")
+  return db.collection("units")
     .add({
       name: name,
       role: role,
@@ -144,6 +144,7 @@ export const createUnit = ({name, role, supplyCost, armyId}) => {
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
+      return docRef.id;
     })
     .catch((error) => {
       console.error("Error writing document: ", error);

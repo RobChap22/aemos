@@ -8,7 +8,6 @@
           <v-autocomplete label='Faction' :items='factions' v-model='formFaction'></v-autocomplete>
 
           <v-btn
-            type='submit'
             color='primary'
             @click='createNewArmy'
           >
@@ -17,6 +16,12 @@
 
         </v-form>
       </v-col>
+    </v-row>
+
+    <v-row>
+      <v-btn @click="showAuth">
+        SHOW USER
+      </v-btn>
     </v-row>
 
   </v-container>
@@ -44,8 +49,12 @@
     methods: {
       async createNewArmy() {
         const id = await createArmy({ name: this.formName, faction: this.formFaction, userId: this.$auth.user.sub });
+        console.log("ID for new army is:" + id);
         return this.$router.push({ name: 'Army', params: { id } });
       },
+      showAuth() {
+        console.log(this.$auth.user.sub);
+      }
     },
   })
 </script>
