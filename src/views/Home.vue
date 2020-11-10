@@ -2,47 +2,45 @@
   <v-container>
 
 
-    <v-row>
+    <v-row justify='center'>
       <v-col
         v-for="(army, i) in $store.state.userArmies"
         :key="i"
-        :cols="army.flex"
+        cols="5"
       >
         <v-card
-          outlined
+          class='army-index-card'
+          color='info'
           @click='pushToArmy(army.id)'
         >
+          <div>
+          </div>
+          <div class='army-content text-center'>
+            <h2>{{ army.name }}</h2>
+            <h3>{{ army.faction }}</h3>
+          </div>
 
-          <v-list-item >
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                {{ army.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ army.faction}}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+        </v-card>
+      </v-col>
+
+      <v-col
+        cols="5"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+          @click='pushToCreateArmy'
+        >
+          <div class='text-center'>
+            <h2 id='new-army-card-text'>NEW</h2>
+          </div>
         </v-card>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col>
-        <v-card
-          outlined
-          @click='pushToCreateArmy'
-        >
 
-          <v-list-item >
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                Create
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -68,3 +66,20 @@ export default Vue.extend({
 
 });
 </script>
+
+
+<style>
+
+.army-content {
+  color: #403d39;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+#new-army-card-text {
+  color: #eb5e28;
+}
+
+</style>
+
+
