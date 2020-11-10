@@ -1,42 +1,37 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
-        <v-banner
-          sticky
-        >
+      <v-col cols='12'>
+        <v-card color='info' class="d-flex pa-2">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>{{ army.name }}</v-list-item-title>
 
               <v-list-item-subtitle class="text--primary">{{ army.faction }}</v-list-item-subtitle>
             </v-list-item-content>
-
-            <v-list-item-action>
-              <v-list-item-action-text>Requisition</v-list-item-action-text>
-
-
-              <h1>{{ army.requisition }}</h1>
-            </v-list-item-action>
           </v-list-item>
-        </v-banner>
+          <div>
+            <div class="fraction">
+              <span class="numerator">{{ army.supplyUsed }}</span>
+              <span class="divide">/</span>
+              <span class="denominator">{{ army.supplyLimit }}</span>
+            </div>
+          </div>
+        </v-card>
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col>
-        <v-card
-          class="mx-auto"
-          max-width="344"
-          outlined
-        >
+    <v-row justify='space-between' align='center'>
+      <v-col cols='7'>
+        <v-card color='info'>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Battle Tally:</v-list-item-title>
             </v-list-item-content>
-
             <v-list-item-action-text>{{ army.battleTally }}</v-list-item-action-text>
           </v-list-item>
+
+
 
           <v-list-item>
             <v-list-item-content>
@@ -48,27 +43,19 @@
         </v-card>
       </v-col>
 
-      <v-col>
-        <v-card
-          class="mx-auto"
-          max-width="344"
-          outlined
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Supply Limit:</v-list-item-title>
-            </v-list-item-content>
-
-            <v-list-item-action-text>{{ army.supplyLimit }}</v-list-item-action-text>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Supply Used:</v-list-item-title>
-            </v-list-item-content>
-
-            <v-list-item-action-text>{{ army.supplyUsed }}</v-list-item-action-text>
-          </v-list-item>
+      <v-col cols='4'>
+        <v-card color='info' class="d-flex align-center pa-2">
+          <div>
+            <h2>Req</h2>
+          </div>
+          <v-spacer></v-spacer>
+          <div>
+            <div class="fraction">
+              <span class="numerator">{{ army.requisition }}</span>
+              <span class="divide">/</span>
+              <span class="denominator">5</span>
+            </div>
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -151,3 +138,28 @@
     },
   })
 </script>
+
+
+<style>
+.fraction {
+  display: flex;
+  justify-content: center;
+  width: 50px;
+  transform: rotate(16deg);
+  font-size: 1.8rem;
+}
+
+.denominator,
+.numerator {
+  transform: rotate(-16deg);
+}
+
+.denominator {
+  display: flex;
+  align-items: flex-end;
+}
+
+.divide {
+  font-size: 3rem;
+}
+</style>
