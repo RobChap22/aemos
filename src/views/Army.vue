@@ -64,50 +64,60 @@
       <v-col
         v-for="(unit, i) in $store.state.armyUnits"
         :key="i"
-        :cols="unit.flex"
+        cols="4"
       >
+
+
+
         <v-card
-          outlined
+          color='info'
           class='unitCard'
           @click="pushToUnit(unit.id)"
         >
+          <div class='center-container img-box'>
+            <v-img
+              lazy-src="@/assets/HQ.png"
+              max-height="44"
+              max-width="44"
+              src="@/assets/HQ.png"
+            ></v-img>
+          </div>
 
-          <v-list-item >
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                {{ unit.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                {{ unit.role}}
-              </v-list-item-subtitle>
-            </v-list-item-content>
+          <div class='center-container'>
+            <h4>{{ unit.name }}</h4>
+          </div>
 
-            <v-list-item-text>{{ unit.supplyCost }}</v-list-item-text>
-          </v-list-item>
+          <div class='card-unit-info'>
+            <div class='crusade-points-display'>
+              <h4>1</h4>
+              <p>Crusade</p>
+            </div>
+
+            <div class='power-cost-display'>
+              <h4>{{ unit.supplyCost }}</h4>
+              <p>Power</p>
+            </div>
+          </div>
 
         </v-card>
       </v-col>
-    </v-row>
 
-    <v-row>
-      <v-col>
+      <v-col
+        cols="4"
+        align-self='center'
+      >
         <v-card
-          outlined
-          class='unitCard'
+          flat
+          color='secondary'
           @click="pushToCreateUnit(army.id)"
         >
-          <v-list-item >
-            <v-list-item-content>
-              <v-list-item-title class="headline mb-1">
-                Add Unit
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+          <div class='text-center'>
+            <h2 id='new-unit-card-text'>ADD</h2>
+          </div>
 
         </v-card>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
@@ -141,25 +151,65 @@
 
 
 <style>
-.fraction {
-  display: flex;
-  justify-content: center;
-  width: 50px;
-  transform: rotate(16deg);
-  font-size: 1.8rem;
-}
+  .fraction {
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    transform: rotate(16deg);
+    font-size: 1.8rem;
+  }
 
-.denominator,
-.numerator {
-  transform: rotate(-16deg);
-}
+  .denominator,
+  .numerator {
+    transform: rotate(-16deg);
+  }
 
-.denominator {
-  display: flex;
-  align-items: flex-end;
-}
+  .denominator {
+    display: flex;
+    align-items: flex-end;
+  }
 
-.divide {
-  font-size: 3rem;
-}
+  .divide {
+    font-size: 3rem;
+  }
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img-box {
+    padding: 7px;
+  }
+
+
+  .card-unit-info{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .crusade-points-display {
+    opacity: 0.5;
+  }
+  .crusade-points-display p {
+    font-size: 0.8em;
+  }
+
+  .power-cost-display {
+    padding-left: 1em;
+  }
+  .power-cost-display h4 {
+    text-align: right;
+  }
+  .power-cost-display p {
+    font-size: 0.8em;
+  }
+
+  #new-unit-card-text {
+    color: #eb5e28;
+  }
 </style>
+

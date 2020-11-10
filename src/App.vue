@@ -42,6 +42,21 @@
     <v-main>
       <router-view></router-view>
     </v-main>
+    <v-footer padless color='secondary'>
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+        <div class='center-container'>
+          <v-img
+            lazy-src="@/assets/ikonography.png"
+            max-height="44"
+            max-width="44"
+            src="@/assets/ikonography.png"
+          ></v-img>
+        </div>
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
@@ -62,6 +77,12 @@ export default Vue.extend({
   #navbar-app-name {
     font-family: 'Orbitron', sans-serif;
     color: secondary;
+  }
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 
