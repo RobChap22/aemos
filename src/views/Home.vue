@@ -39,7 +39,7 @@
               color="primary"
               @click='pushToCreateArmy'
             >
-                 <v-icon dark>mdi-plus</v-icon>
+                 <v-icon color='secondary'>mdi-plus</v-icon>
             </v-btn>
           </div>
         </v-card>

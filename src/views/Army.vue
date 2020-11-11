@@ -118,7 +118,7 @@
               color="primary"
               @click="pushToCreateUnit(army.id)"
             >
-                 <v-icon dark>mdi-plus</v-icon>
+                 <v-icon color='secondary'>mdi-plus</v-icon>
             </v-btn>
           </div>
 

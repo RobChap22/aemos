@@ -50,6 +50,8 @@ export const readUnits = (id) => {
           unitType: doc.data().unitType,
           warlordTrait: doc.data().warlordTrait,
           psychicPowers: doc.data().psychicPowers,
+          experiencePoints: doc.data().experiencePoints,
+          battleHonours: doc.data().battleHonours,
         });
         // console.log(doc.id, " => ", doc.data());
       });

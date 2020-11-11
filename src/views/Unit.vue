@@ -87,44 +87,63 @@
     </v-row>
 
     <v-row>
-      <v-col>
-
+      <v-col cols='12'>
         <v-card
-          class="mx-auto"
-          max-width="344"
-          outlined
+          color='info'
+          class="pa-2"
         >
-          <v-card-text>
-            <v-row>
+          <div class='d-flex'>
+            <div class='center-container'>
+              <h3>Rank</h3>
+            </div>
+            <v-spacer></v-spacer>
+            <div class='center-container'>
+              <p class="unit-supply-cost">{{ unit.experiencePoints }}</p>
+            </div>
+          </div>
+          <div>
+            <v-list-item v-if='unit.battleHonours && unit.battleHonours.length'>
+              <v-list-item-content>
+                <v-list-item-title>Battle Honours:</v-list-item-title>
 
-              <v-list-item-action>
-                <v-item-text>Experience</v-item-text>
+                <v-list-item-subtitle>{{ unit.battleHonours.join(', ') }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+          <div>
+            <v-list-item v-if='unit.battleScars && unit.battleScars.length'>
+              <v-list-item-content>
+                <v-list-item-title>Battlescars:</v-list-item-title>
 
-                <h1>{{ unit.experiencePoints }}</h1>
-              </v-list-item-action>
-
-              <v-divider
-                class="mx-4"
-                vertical
-              ></v-divider>
-
-              <v-list-item-action>
-                <v-list-item-action-text>Crusade Points</v-list-item-action-text>
-                <h1>{{ unit.crusadePoints }}</h1>
-              </v-list-item-action>
-            </v-row>
-            <v-row>
-              <v-list-item>{{ unit.rank }}</v-list-item>
-            </v-row>
-          </v-card-text>
+                <v-list-item-subtitle>{{ unit.battleScars.join(', ') }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
         </v-card>
       </v-col>
-
     </v-row>
 
     <v-row>
-      <v-col>
-        <h2 @click='pushToArmy(unit.armyRef)' >Back to Roster</h2>
+      <v-col
+        cols="4"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+        >
+          <div class='center-container'>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="primary"
+              @click="pushToArmy(unit.armyRef)"
+            >
+                 <v-icon color='secondary'>mdi-arrow-left-thick</v-icon>
+            </v-btn>
+          </div>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -147,6 +166,11 @@
       unit() {
         return this.$store.getters.getUnitById(this.$route.params.id)
       },
+
+      // rank() {
+        // const xp = this.$store.getters.getUnitById(this.$route.params.id).experiencePoints
+        // if (xp <== 5) {return 'Battle-Ready';}
+      // },
     },
   })
 </script>
@@ -163,4 +187,9 @@
     opacity: 0.5;
   }
 
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
