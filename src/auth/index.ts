@@ -2,10 +2,10 @@
 
 
 import Vue from "vue";
-import createAuth0Client from "@auth0/auth0-spa-js";
+import createAuth0Client, { Auth0ClientOptions } from "@auth0/auth0-spa-js";
 
 /** Define a default action to perform after authentication */
-const DEFAULT_REDIRECT_CALLBACK = () =>
+const DEFAULT_REDIRECT_CALLBACK = (state) =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
 let instance;
@@ -97,7 +97,7 @@ export const useAuth0 = ({
           ...options,
           client_id: options.clientId,
           redirect_uri: redirectUri
-        });
+        } as Auth0ClientOptions);
       } catch (e) {
         console.error(e)
       }

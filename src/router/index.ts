@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { authGuard } from "../auth/authGuard.ts";
+import { authGuard } from "../auth/authGuard";
 import Home from '../views/Home.vue'
 
 
-import Profile from "../views/Profile.vue";
 import ExternalApiView from "../views/ExternalApi.vue";
 
 
@@ -45,17 +44,6 @@ const routes: Array<RouteConfig> = [
     path: '/createunit/:id',
     name: 'CreateUnit',
     component: () => import('../views/CreateUnit.vue'),
-    beforeEnter: authGuard,
-  },
-  {
-    path: '/fb',
-    name: 'Firebase',
-    component: () => import('../views/FirebaseTest.vue')
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
     beforeEnter: authGuard,
   },
   {

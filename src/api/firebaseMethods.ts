@@ -128,8 +128,8 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       battleScars: [],
       unitType: unitType,
       equipment: equipment,
-      experiencePoints: parseInt(0),
-      crusadePoints: parseInt(0),
+      experiencePoints: 0,
+      crusadePoints: 0,
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
