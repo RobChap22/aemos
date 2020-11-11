@@ -76,20 +76,18 @@
         >
           <div class='center-container img-box'>
             <v-img
-              lazy-src="@/assets/HQ.png"
-              max-height="44"
-              max-width="44"
-              src="@/assets/HQ.png"
+              max-height='44'
+              max-width='44'
+              :src='unit.roleImg'
             ></v-img>
           </div>
-
           <div class='center-container'>
             <h4>{{ unit.name }}</h4>
           </div>
 
           <div class='card-unit-info'>
             <div class='crusade-points-display'>
-              <h4>1</h4>
+              <h4>{{ unit.crusadePoints }}</h4>
               <p>Crusade</p>
             </div>
 
@@ -141,7 +139,7 @@
       },
       pushToCreateUnit(id) {
         return this.$router.push({ name: 'CreateUnit', params: { id } })
-      }
+      },
     },
 
     computed: {

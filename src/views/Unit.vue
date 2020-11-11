@@ -2,13 +2,21 @@
   <v-container>
     <v-row>
       <v-col cols='12'>
-        <v-card color='info' class="d-flex justify-space-between pa-2">
+        <v-card color='info' class="d-flex pa-2">
+          <div class='center-container img-box'>
+            <v-img
+              max-height='80'
+              max-width='80'
+              :src='unit.roleImg'
+            ></v-img>
+          </div>
           <div>
             <v-card-title class="headline">
               {{ unit.name }}
             </v-card-title>
             <v-card-subtitle>{{ unit.unitType}}</v-card-subtitle>
           </div>
+          <v-spacer></v-spacer>
           <div>
             <div class="unit-numerical-display pr-3">
               <p class="unit-supply-cost">{{ unit.supplyCost }}</p>

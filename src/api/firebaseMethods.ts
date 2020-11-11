@@ -3,6 +3,36 @@ import firebase from "@/api/firebaseInit";
 
 const db = firebase.firestore();
 
+function getUnitRoleImg(role) {
+  if (role === 'HQ') {
+    return "/HQ.png";
+
+  } else if (role === 'Troops') {
+    return "/Troops.png";
+
+  } else if (role === 'Elite') {
+    return "/Elite.png";
+
+  } else if (role === 'Fast Attack') {
+    return "/fast-attack.png";
+
+  } else if (role === 'Heavy Support') {
+    return "/heavy-support.png";
+
+  } else if (role === 'Flyer') {
+    return "/flyer.png";
+
+  } else if (role === 'Lord of War') {
+    return "/lord-of-war.png";
+
+  } else if (role === 'Dedicated Transport') {
+    return "/dedicated-transport.png";
+
+  } else {
+    return '';
+  }
+}
+
 
 
 export const readArmies = (userId) => {
@@ -51,7 +81,9 @@ export const readUnits = (id) => {
           warlordTrait: doc.data().warlordTrait,
           psychicPowers: doc.data().psychicPowers,
           experiencePoints: doc.data().experiencePoints,
+          crusadePoints: doc.data().crusadePoints,
           battleHonours: doc.data().battleHonours,
+          roleImg: getUnitRoleImg(doc.data().role),
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -97,6 +129,7 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       unitType: unitType,
       equipment: equipment,
       experiencePoints: parseInt(0),
+      crusadePoints: parseInt(0),
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
