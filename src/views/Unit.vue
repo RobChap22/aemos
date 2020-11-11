@@ -94,7 +94,7 @@
         >
           <div class='d-flex'>
             <div class='center-container'>
-              <h3>Rank</h3>
+              <h3>{{rank}}</h3>
             </div>
             <v-spacer></v-spacer>
             <div class='center-container'>
@@ -167,10 +167,20 @@
         return this.$store.getters.getUnitById(this.$route.params.id)
       },
 
-      // rank() {
-        // const xp = this.$store.getters.getUnitById(this.$route.params.id).experiencePoints
-        // if (xp <== 5) {return 'Battle-Ready';}
-      // },
+      rank() {
+        const xp = this.$store.getters.getUnitById(this.$route.params.id).experiencePoints
+        if (xp <= 5) {
+          return 'Battle-Ready';
+        } else if (xp > 5 && xp <= 15) {
+          return 'Blooded';
+        } else if (xp > 15 && xp <= 30) {
+          return 'Battle-Hardened';
+        } else if (xp > 30 && xp <= 50) {
+          return 'Heroic';
+        } else {
+          return 'Legendary';
+        }
+      },
     },
   })
 </script>

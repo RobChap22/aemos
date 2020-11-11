@@ -85,13 +85,18 @@ export const createArmy = ({name, faction, userId }) => {
 };
 
 
-export const createUnit = ({name, role, supplyCost, armyId}) => {
+export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment }) => {
   return db.collection("units")
     .add({
       name: name,
       role: role,
       supplyCost: parseInt(supplyCost, 10),
-      armyRef: armyId
+      armyRef: armyId,
+      battleHonours: [],
+      battleScars: [],
+      unitType: unitType,
+      equipment: equipment,
+      experiencePoints: parseInt(0),
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
