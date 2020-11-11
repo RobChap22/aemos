@@ -30,10 +30,17 @@
         <v-card
           flat
           color='secondary'
-          @click='pushToCreateArmy'
         >
-          <div class='text-center'>
-            <h2 id='new-army-card-text'>NEW</h2>
+          <div class='center-container'>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="primary"
+              @click='pushToCreateArmy'
+            >
+                 <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
           </div>
         </v-card>
       </v-col>
@@ -69,15 +76,21 @@ export default Vue.extend({
 
 <style>
 
-.army-content {
-  color: #403d39;
-  text-decoration: none;
-  font-weight: normal;
-}
+  .army-content {
+    color: #403d39;
+    text-decoration: none;
+    font-weight: normal;
+  }
 
-#new-army-card-text {
-  color: #eb5e28;
-}
+  #new-army-card-text {
+    color: #eb5e28;
+  }
+
+  .center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 </style>
 

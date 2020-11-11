@@ -45,6 +45,11 @@ export const readUnits = (id) => {
           supplyCost: doc.data().supplyCost,
           role: doc.data().role,
           armyRef: doc.data().armyRef,
+          equipment: doc.data().equipment,
+          relic: doc.data().relic,
+          unitType: doc.data().unitType,
+          warlordTrait: doc.data().warlordTrait,
+          psychicPowers: doc.data().psychicPowers,
         });
         // console.log(doc.id, " => ", doc.data());
       });

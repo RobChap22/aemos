@@ -109,10 +109,17 @@
         <v-card
           flat
           color='secondary'
-          @click="pushToCreateUnit(army.id)"
         >
-          <div class='text-center'>
-            <h2 id='new-unit-card-text'>ADD</h2>
+          <div class='center-container'>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="primary"
+              @click="pushToCreateUnit(army.id)"
+            >
+                 <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
           </div>
 
         </v-card>
@@ -209,6 +216,10 @@
   }
 
   #new-unit-card-text {
+    color: #eb5e28;
+  }
+
+  .divide {
     color: #eb5e28;
   }
 </style>
