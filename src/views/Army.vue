@@ -12,7 +12,7 @@
           </v-list-item>
           <div>
             <div class="fraction">
-              <span class="numerator">{{ army.supplyUsed }}</span>
+              <span class="numerator">{{ supplyUsed }}</span>
               <span class="divide">/</span>
               <span class="denominator">{{ army.supplyLimit }}</span>
             </div>
@@ -146,6 +146,13 @@
       army() {
         return this.$store.getters.getArmyById(this.$route.params.id)
       },
+      supplyUsed() {
+        let sum = 0;
+        const units = this.$store.state.armyUnits;
+
+        units.forEach(unit => sum += unit.supplyCost );
+        return sum;
+      }
     },
 
     mounted() {
