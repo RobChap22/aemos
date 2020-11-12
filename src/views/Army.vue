@@ -60,7 +60,7 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if='$store.state.armyUnits'>
       <v-col
         v-for="(unit, i) in $store.state.armyUnits"
         :key="i"
