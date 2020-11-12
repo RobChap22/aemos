@@ -11,7 +11,7 @@
             </v-list-item-content>
           </v-list-item>
           <div>
-            <div class="fraction">
+            <div class="fraction pr-3">
               <span class="numerator">{{ supplyUsed }}</span>
               <span class="divide">/</span>
               <span class="denominator">{{ army.supplyLimit }}</span>
@@ -123,15 +123,87 @@
         </v-card>
       </v-col>
     </v-row>
+
+
+    <template>
+      <v-row justify="center">
+        <v-dialog
+          v-model="dialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Open Dialog
+            </v-btn>
+          </template>
+          <v-card>
+            <v-toolbar
+              dark
+              color="primary"
+            >
+              <v-btn
+                icon
+                dark
+                @click="dialog = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Settings</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn
+                  dark
+                  text
+                  @click="updateCurrentArmy"
+                >
+                  Save
+                </v-btn>
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-form>
+              <number-input
+                v-model='updateRequisition'
+                :min="0"
+                :max="5"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+            </v-form>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </template>
+
   </v-container>
 </template>
 
 
 <script lang="ts">
   import Vue from 'vue'
+  import { updateArmy } from "@/api/firebaseMethods";
+
+
 
   export default Vue.extend({
     name: 'Army',
+
+    data () {
+      return {
+        dialog: false,
+        updateRequisition: 0,
+        sound: true,
+        widgets: false,
+      }
+    },
 
     methods: {
       pushToUnit(id) {
@@ -139,6 +211,14 @@
       },
       pushToCreateUnit(id) {
         return this.$router.push({ name: 'CreateUnit', params: { id } })
+      },
+      async updateCurrentArmy() {
+        await updateArmy({
+          armyId: this.$route.params.id,
+          requisition: this.updateRequisition,
+        });
+        this.$store.dispatch('setUserArmies', this.$auth.user.sub);
+        this.dialog = false;
       },
     },
 
@@ -148,15 +228,17 @@
       },
       supplyUsed() {
         let sum = 0;
-        const units = this.$store.state.armyUnits;
-
-        units.forEach(unit => sum += unit.supplyCost );
+        const units = this.$store.state.armyUnits
+        units.forEach(unit => {
+          sum += parseInt(unit.supplyCost)
+        });
         return sum;
-      }
+      },
     },
 
     mounted() {
-      this.$store.dispatch('setArmyUnits', this.$route.params.id)
+      this.$store.dispatch('setArmyUnits', this.$route.params.id);
+      this.updateRequisition = parseInt(this.$store.getters.getArmyById(this.$route.params.id).requisition, 10)
     },
   })
 </script>

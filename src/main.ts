@@ -4,6 +4,7 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import store from './store';
 import Vuex from 'vuex';
+import VueNumberInput from '@chenfengyuan/vue-number-input';
 
 
 
@@ -28,7 +29,7 @@ Vue.use(Auth0Plugin, {
   }
 });
 
-
+Vue.use(VueNumberInput);
 
 Vue.config.productionTip = false;
 

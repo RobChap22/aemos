@@ -50,7 +50,7 @@ export const readArmies = (userId) => {
           battlesWon: doc.data().battlesWon,
           battleTally: doc.data().battleTally,
           supplyLimit: doc.data().supplyLimit,
-          supplyUsed: doc.data().supplyUsed,
+
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -136,6 +136,39 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       return docRef.id;
     })
     .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
+};
+
+
+
+// Add a new document in collection "cities"
+// db.collection("cities").doc("LA").set({
+//     name: "Los Angeles",
+//     state: "CA",
+//     country: "USA"
+// })
+// .then(function() {
+//     console.log("Document successfully written!");
+// })
+// .catch(function(error) {
+//     console.error("Error writing document: ", error);
+// });
+
+
+export const updateArmy = ({ armyId, requisition }) => {
+  return db.collection("armies").doc(armyId)
+    .update({
+      "requisition": parseInt(requisition, 10),
+      // battlesWon: battlesWon,
+      // battleTally: battleTally,
+      // supplyLimit: supplyLimit,
+    })
+    .then(function() {
+      console.log("Document successfully written!");
+      console.log(requisition)
+    })
+    .catch(function(error) {
       console.error("Error writing document: ", error);
     });
 };

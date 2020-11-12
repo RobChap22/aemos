@@ -10,8 +10,8 @@ export default new Vuex.Store({
   state: {
     roles: ['HQ', 'Troops', 'Elite', 'Fast Attack', 'Heavy Support', 'Flyer', 'Lord of War', 'Dedicated Transport'],
     factions: ['Imperium', 'Chaos', 'Aeldari', 'Tyranids', 'Orks', 'Necrons', 'Tau Empire'],
-    userArmies: null,
-    armyUnits: null,
+    userArmies: [],
+    armyUnits: [],
   },
 
   mutations: {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     },
     SET_ARMY_UNITS(state, units) {
       state.armyUnits = units;
-    }
+    },
   },
 
   actions: {
@@ -28,9 +28,10 @@ export default new Vuex.Store({
       const armies = await readArmies(id);
       commit('SET_USER_ARMIES', armies)
     },
+
     async setArmyUnits ({ commit }, id) {
       const units = await readUnits(id);
-      commit('SET_ARMY_UNITS', units)
+      commit('SET_ARMY_UNITS', units);
     },
   },
 
