@@ -139,7 +139,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              Open Dialog
+              Update
             </v-btn>
           </template>
           <v-card>
@@ -167,10 +167,42 @@
               </v-toolbar-items>
             </v-toolbar>
             <v-form>
+              <p>requisition</p>
               <number-input
                 v-model='updateRequisition'
                 :min="0"
                 :max="5"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+              <p>supply limit</p>
+              <number-input
+                v-model='updateSupplyLimit'
+                :min="50"
+                :step="5"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+              <p>Battle tally</p>
+              <number-input
+                v-model='updateBattleTally'
+                :min="0"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+              <p>Battles won</p>
+              <number-input
+                v-model='updateBattlesWon'
+                :min="0"
                 inline
                 center
                 controls
@@ -200,8 +232,9 @@
       return {
         dialog: false,
         updateRequisition: 0,
-        sound: true,
-        widgets: false,
+        updateSupplyLimit: 0,
+        updateBattleTally: 0,
+        updateBattlesWon: 0,
       }
     },
 
@@ -216,6 +249,9 @@
         await updateArmy({
           armyId: this.$route.params.id,
           requisition: this.updateRequisition,
+          supplyLimit: this.updateSupplyLimit,
+          battleTally: this.updateBattleTally,
+          battlesWon: this.updateBattlesWon,
         });
         this.$store.dispatch('setUserArmies', this.$auth.user.sub);
         this.dialog = false;
@@ -238,7 +274,10 @@
 
     mounted() {
       this.$store.dispatch('setArmyUnits', this.$route.params.id);
-      this.updateRequisition = parseInt(this.$store.getters.getArmyById(this.$route.params.id).requisition, 10)
+      this.updateRequisition = parseInt(this.$store.getters.getArmyById(this.$route.params.id).requisition, 10);
+      this.updateSupplyLimit = parseInt(this.$store.getters.getArmyById(this.$route.params.id).supplyLimit, 10);
+      this.updateBattleTally = parseInt(this.$store.getters.getArmyById(this.$route.params.id).battleTally, 10);
+      this.updateBattlesWon = parseInt(this.$store.getters.getArmyById(this.$route.params.id).battlesWon, 10);
     },
   })
 </script>

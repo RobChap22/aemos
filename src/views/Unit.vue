@@ -106,7 +106,7 @@
             </div>
             <v-spacer></v-spacer>
             <div class='center-container'>
-              <p class="unit-supply-cost">{{ unit.experiencePoints }}</p>
+              <p class="unit-supply-cost" :key='keyTrick'>{{ unit.experiencePoints }}</p>
             </div>
           </div>
           <div>
@@ -154,19 +154,110 @@
         </v-card>
       </v-col>
     </v-row>
+
+
+    <template>
+      <v-row justify="center">
+        <v-dialog
+          v-model="dialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Update
+            </v-btn>
+          </template>
+          <v-card>
+            <v-toolbar
+              dark
+              color="primary"
+            >
+              <v-btn
+                icon
+                dark
+                @click="dialog = false"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Settings</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn
+                  dark
+                  text
+                  @click="updateCurrentUnit"
+                >
+                  Save
+                </v-btn>
+              </v-toolbar-items>
+            </v-toolbar>
+            <v-form>
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-textarea
+                    name="input-7-1"
+                    label="Equipment"
+                    v-model='updateEquipment'
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+
+              <p>XP</p>
+              <number-input
+                v-model='updateExperiencePoints'
+                :min="0"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+
+            </v-form>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </template>
+
+
   </v-container>
 </template>
 
 
 <script lang="ts">
   import Vue from 'vue'
+  import { updateUnit } from "@/api/firebaseMethods";
 
   export default Vue.extend({
     name: 'Unit',
 
+    data () {
+      return {
+        dialog: false,
+        keyTrick: 0,
+        updateEquipment: '',
+        updateExperiencePoints: 0,
+      }
+    },
+
     methods: {
       pushToArmy(id) {
         return this.$router.push({ name: 'Army', params: { id } });
+      },
+      async updateCurrentUnit() {
+        await updateUnit({
+          unitId: this.$route.params.id,
+          equipment: this.updateEquipment,
+          experiencePoints: this.updateExperiencePoints,
+        });
+        this.$store.dispatch('setArmyUnits', this.unit.armyRef);
+        this.dialog = false;
       },
     },
 
@@ -189,6 +280,11 @@
           return 'Legendary';
         }
       },
+    },
+
+    mounted() {
+      this.updateEquipment = this.$store.getters.getUnitById(this.$route.params.id).equipment;
+      this.updateExperiencePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).experiencePoints, 10);
     },
   })
 </script>

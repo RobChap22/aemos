@@ -50,7 +50,6 @@ export const readArmies = (userId) => {
           battlesWon: doc.data().battlesWon,
           battleTally: doc.data().battleTally,
           supplyLimit: doc.data().supplyLimit,
-
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -142,31 +141,32 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
 
 
 
-// Add a new document in collection "cities"
-// db.collection("cities").doc("LA").set({
-//     name: "Los Angeles",
-//     state: "CA",
-//     country: "USA"
-// })
-// .then(function() {
-//     console.log("Document successfully written!");
-// })
-// .catch(function(error) {
-//     console.error("Error writing document: ", error);
-// });
 
 
-export const updateArmy = ({ armyId, requisition }) => {
+export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, battlesWon }) => {
   return db.collection("armies").doc(armyId)
     .update({
-      "requisition": parseInt(requisition, 10),
-      // battlesWon: battlesWon,
-      // battleTally: battleTally,
-      // supplyLimit: supplyLimit,
+      requisition: parseInt(requisition, 10),
+      battlesWon: battlesWon,
+      battleTally: battleTally,
+      supplyLimit: supplyLimit,
     })
     .then(function() {
       console.log("Document successfully written!");
-      console.log(requisition)
+    })
+    .catch(function(error) {
+      console.error("Error writing document: ", error);
+    });
+};
+
+export const updateUnit = ({ unitId, equipment, experiencePoints }) => {
+  return db.collection("units").doc(unitId)
+    .update({
+      equipment: equipment,
+      experiencePoints: experiencePoints,
+    })
+    .then(function() {
+      console.log("Document successfully written!");
     })
     .catch(function(error) {
       console.error("Error writing document: ", error);
