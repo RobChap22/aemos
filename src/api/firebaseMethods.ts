@@ -1,7 +1,5 @@
-import firebase from "@/api/firebaseInit";
+import { firebase, db } from "@/api/firebaseInit";
 
-
-const db = firebase.firestore();
 
 function getUnitRoleImg(role) {
   if (role === 'HQ') {
@@ -82,6 +80,7 @@ export const readUnits = (id) => {
           experiencePoints: doc.data().experiencePoints,
           crusadePoints: doc.data().crusadePoints,
           battleHonours: doc.data().battleHonours,
+          battleScars: doc.data().battleScars,
           roleImg: getUnitRoleImg(doc.data().role),
         });
         // console.log(doc.id, " => ", doc.data());
@@ -123,12 +122,12 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       role: role,
       supplyCost: parseInt(supplyCost, 10),
       armyRef: armyId,
-      battleHonours: [],
-      battleScars: [],
       unitType: unitType,
       equipment: equipment,
       experiencePoints: 0,
       crusadePoints: 0,
+      battleHonours: '',
+      battleScars: '',
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -159,11 +158,14 @@ export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, batt
     });
 };
 
-export const updateUnit = ({ unitId, equipment, experiencePoints }) => {
+export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars }) => {
   return db.collection("units").doc(unitId)
     .update({
       equipment: equipment,
       experiencePoints: experiencePoints,
+      crusadePoints: crusadePoints,
+      battleHonours: firebase.firestore.FieldValue.arrayUnion(battleHonours),
+      battleScars: firebase.firestore.FieldValue.arrayUnion(battleScars),
     })
     .then(function() {
       console.log("Document successfully written!");

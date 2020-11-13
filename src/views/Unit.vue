@@ -20,7 +20,7 @@
           <div>
             <div class="unit-numerical-display pr-3">
               <p class="unit-supply-cost">{{ unit.supplyCost }}</p>
-              <p class="unit-crusade-points">0</p>
+              <p class="unit-crusade-points">{{ unit.crusadePoints }}</p>
             </div>
           </div>
         </v-card>
@@ -198,15 +198,6 @@
               </v-toolbar-items>
             </v-toolbar>
             <v-form>
-              <v-row>
-                <v-col cols="12" md="6">
-                  <v-textarea
-                    name="input-7-1"
-                    label="Equipment"
-                    v-model='updateEquipment'
-                  ></v-textarea>
-                </v-col>
-              </v-row>
 
               <p>XP</p>
               <number-input
@@ -217,6 +208,50 @@
                 controls
                 size="large"
               ></number-input>
+
+              <p>Crusade points</p>
+              <number-input
+                v-model='updateCrusadePoints'
+                :min="0"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+
+              <v-row>
+                <v-col cols="12" md="6">
+                  <v-textarea
+                    name="input-7-1"
+                    label="Equipment"
+                    v-model='updateEquipment'
+                  ></v-textarea>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                >
+                  <v-text-field
+                    label="Add Battle Honour"
+                    v-model='addBattleHonour'
+                    outlined
+                  ></v-text-field>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                >
+                  <v-text-field
+                    label="Add Battlescar"
+                    v-model='addBattleScar'
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
 
 
             </v-form>
@@ -243,6 +278,9 @@
         keyTrick: 0,
         updateEquipment: '',
         updateExperiencePoints: 0,
+        updateCrusadePoints: 0,
+        addBattleHonour: '',
+        addBattleScar: '',
       }
     },
 
@@ -255,6 +293,9 @@
           unitId: this.$route.params.id,
           equipment: this.updateEquipment,
           experiencePoints: this.updateExperiencePoints,
+          crusadePoints: this.updateCrusadePoints,
+          battleHonours: this.addBattleHonour,
+          battleScars: this.addBattleScar,
         });
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.dialog = false;
@@ -285,6 +326,7 @@
     mounted() {
       this.updateEquipment = this.$store.getters.getUnitById(this.$route.params.id).equipment;
       this.updateExperiencePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).experiencePoints, 10);
+      this.updateCrusadePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).crusadePoints, 10);
     },
   })
 </script>
