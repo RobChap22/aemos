@@ -129,7 +129,7 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       battleHonours: [],
       battleScars: [],
       relics: [],
-      warlordTrait: '',
+      warlordTraits: [],
       psychicPowers: [],
     })
     .then(function(docRef) {
@@ -161,7 +161,7 @@ export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, batt
     });
 };
 
-export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars, supplyCost, relics }) => {
+export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars, supplyCost, relics, warlordTraits, psychicPowers }) => {
   return db.collection("units").doc(unitId)
     .update({
       equipment: equipment,
@@ -170,6 +170,8 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
       battleHonours: firebase.firestore.FieldValue.arrayUnion(battleHonours),
       battleScars: firebase.firestore.FieldValue.arrayUnion(battleScars),
       relics: firebase.firestore.FieldValue.arrayUnion(relics),
+      psychicPowers: firebase.firestore.FieldValue.arrayUnion(psychicPowers),
+      warlordTraits: firebase.firestore.FieldValue.arrayUnion(warlordTraits),
       supplyCost: supplyCost,
     })
     .then(function() {

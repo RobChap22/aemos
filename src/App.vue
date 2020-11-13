@@ -32,6 +32,16 @@
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item link @click='logout' >
+            <v-list-item-icon>
+              <v-icon color='primary'>mdi-logout</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-menu>
 
@@ -61,14 +71,25 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/camelcase */
+
 import Vue from 'vue';
+import { useAuth0 } from "./auth/index";
 
 export default Vue.extend({
   name: 'App',
 
   data: () => ({
     //
-}),
+  }),
+  methods: {
+    logout() {
+      // useAuth0.logout({
+      //  returnTo: 'https://nervous-knuth-431792.netlify.app',
+      //  client_id: 'w3I4k0TPJTRaRcCAYJQla2mZycp7ypcx'
+      // });
+    }
+  }
 });
 </script>
 

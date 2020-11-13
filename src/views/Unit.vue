@@ -60,7 +60,7 @@
       </v-col>
 
       <v-col
-        v-if='unit.warlordTrait'
+        v-if='unit.warlordTraits && unit.warlordTraits.length'
         cols="12"
       >
         <v-card
@@ -70,7 +70,7 @@
             <v-list-item-content>
               <v-list-item-title>Warlord Trait:</v-list-item-title>
 
-              <v-list-item-subtitle>{{ unit.warlordTrait }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ unit.warlordTraits.join(', ') }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -259,6 +259,42 @@
                     outlined
                   ></v-text-field>
                 </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                >
+                  <v-text-field
+                    label="Add Warlord Trait"
+                    v-model='addWarlordTrait'
+                    outlined
+                  ></v-text-field>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                >
+                  <v-text-field
+                    label="Add Relic"
+                    v-model='addRelic'
+                    outlined
+                  ></v-text-field>
+                </v-col>
+
+                <v-col
+                  cols="12"
+                  sm="6"
+                  md="3"
+                >
+                  <v-text-field
+                    label="Add Psychic Power"
+                    v-model='addPsychicPower'
+                    outlined
+                  ></v-text-field>
+                </v-col>
               </v-row>
 
               <p>Power level</p>
@@ -302,6 +338,8 @@
         addBattleScar: null,
         updateSupplyCost: 0,
         addRelic: null,
+        addWarlordTrait: null,
+        addPsychicPower: null,
       }
     },
 
@@ -319,6 +357,8 @@
           battleScars: this.addBattleScar,
           supplyCost: this.updateSupplyCost,
           relics: this.addRelic,
+          warlordTraits: this.addWarlordTrait,
+          psychicPowers: this.addPsychicPower,
         });
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.dialog = false;
