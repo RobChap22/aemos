@@ -43,7 +43,7 @@
       </v-col>
 
       <v-col
-        v-if='unit.relic'
+        v-if='unit.relics && unit.relics.length'
         cols="12"
       >
         <v-card
@@ -53,7 +53,7 @@
             <v-list-item-content>
               <v-list-item-title>Relic:</v-list-item-title>
 
-              <v-list-item-subtitle>{{ unit.relic }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ unit.relics.join(', ') }}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -77,7 +77,7 @@
       </v-col>
 
       <v-col
-        v-if='unit.psychicPowers'
+        v-if='unit.psychicPowers && unit.psychicPowers.length'
         cols="12"
       >
         <v-card
@@ -106,7 +106,7 @@
             </div>
             <v-spacer></v-spacer>
             <div class='center-container'>
-              <p class="unit-supply-cost" :key='keyTrick'>{{ unit.experiencePoints }}</p>
+              <p class="unit-supply-cost">{{ unit.experiencePoints }}</p>
             </div>
           </div>
           <div>
@@ -240,6 +240,14 @@
                   ></v-text-field>
                 </v-col>
 
+                <v-col cols="12" md="6">
+                  <v-textarea
+                    name="input-7-1"
+                    label="Equipment"
+                    v-model='updateEquipment'
+                  ></v-textarea>
+                </v-col>
+
                 <v-col
                   cols="12"
                   sm="6"
@@ -252,6 +260,16 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
+
+              <p>Power level</p>
+              <number-input
+                v-model='updateSupplyCost'
+                :min="0"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
 
 
             </v-form>
@@ -269,6 +287,7 @@
   import Vue from 'vue'
   import { updateUnit } from "@/api/firebaseMethods";
 
+
   export default Vue.extend({
     name: 'Unit',
 
@@ -279,8 +298,10 @@
         updateEquipment: '',
         updateExperiencePoints: 0,
         updateCrusadePoints: 0,
-        addBattleHonour: '',
-        addBattleScar: '',
+        addBattleHonour: null,
+        addBattleScar: null,
+        updateSupplyCost: 0,
+        addRelic: null,
       }
     },
 
@@ -296,6 +317,8 @@
           crusadePoints: this.updateCrusadePoints,
           battleHonours: this.addBattleHonour,
           battleScars: this.addBattleScar,
+          supplyCost: this.updateSupplyCost,
+          relics: this.addRelic,
         });
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.dialog = false;
@@ -327,6 +350,7 @@
       this.updateEquipment = this.$store.getters.getUnitById(this.$route.params.id).equipment;
       this.updateExperiencePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).experiencePoints, 10);
       this.updateCrusadePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).crusadePoints, 10);
+      this.updateSupplyCost = parseInt(this.$store.getters.getUnitById(this.$route.params.id).supplyCost, 10);
     },
   })
 </script>

@@ -4,17 +4,15 @@ import router from './router'
 import vuetify from './plugins/vuetify';
 import store from './store';
 import Vuex from 'vuex';
-import VueNumberInput from '@chenfengyuan/vue-number-input';
-
-
-
-// Import the Auth0 configuration
 import { domain, clientId, audience, responseType } from "./auth_config.json";
-
-// Import the plugin here
 import { Auth0Plugin } from "./auth";
+import VueNumberInput from '@chenfengyuan/vue-number-input';
+import VueAnalytics from 'vue-ua';
 
-// Install the authentication plugin here
+
+
+
+// auth0
 Vue.use(Auth0Plugin, {
   domain,
   clientId,
@@ -29,7 +27,20 @@ Vue.use(Auth0Plugin, {
   }
 });
 
+// number input
 Vue.use(VueNumberInput);
+
+// vue analytics
+Vue.use(VueAnalytics, {
+  // [Required] The name of your app as specified in Google Analytics.
+  appName: 'Aemos',
+  // [Required] The version of your app.
+  appVersion: '1.0',
+  // [Required] Your Google Analytics tracking ID.
+  trackingId: '252715275',
+})
+
+
 
 Vue.config.productionTip = false;
 

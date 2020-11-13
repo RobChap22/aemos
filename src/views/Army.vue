@@ -224,7 +224,6 @@
   import { updateArmy } from "@/api/firebaseMethods";
 
 
-
   export default Vue.extend({
     name: 'Army',
 

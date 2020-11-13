@@ -28,7 +28,6 @@
   import { createArmy } from "@/api/firebaseMethods";
 
 
-
   export default Vue.extend({
     name: 'Firebase',
 

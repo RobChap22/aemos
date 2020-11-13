@@ -42,7 +42,6 @@
   import { createUnit } from "@/api/firebaseMethods";
 
 
-
   export default Vue.extend({
     name: 'Firebase',
 

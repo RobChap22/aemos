@@ -73,7 +73,7 @@ export const readUnits = (id) => {
           role: doc.data().role,
           armyRef: doc.data().armyRef,
           equipment: doc.data().equipment,
-          relic: doc.data().relic,
+          relics: doc.data().relics,
           unitType: doc.data().unitType,
           warlordTrait: doc.data().warlordTrait,
           psychicPowers: doc.data().psychicPowers,
@@ -126,8 +126,11 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       equipment: equipment,
       experiencePoints: 0,
       crusadePoints: 0,
-      battleHonours: '',
-      battleScars: '',
+      battleHonours: [],
+      battleScars: [],
+      relics: [],
+      warlordTrait: '',
+      psychicPowers: [],
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -158,7 +161,7 @@ export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, batt
     });
 };
 
-export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars }) => {
+export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars, supplyCost, relics }) => {
   return db.collection("units").doc(unitId)
     .update({
       equipment: equipment,
@@ -166,6 +169,8 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
       crusadePoints: crusadePoints,
       battleHonours: firebase.firestore.FieldValue.arrayUnion(battleHonours),
       battleScars: firebase.firestore.FieldValue.arrayUnion(battleScars),
+      relics: firebase.firestore.FieldValue.arrayUnion(relics),
+      supplyCost: supplyCost,
     })
     .then(function() {
       console.log("Document successfully written!");
