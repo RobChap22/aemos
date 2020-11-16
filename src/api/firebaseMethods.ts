@@ -181,3 +181,16 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
       console.error("Error writing document: ", error);
     });
 };
+
+
+
+
+
+
+export const deleteArmy = (armyId) => {
+  db.collection("armies").doc(armyId).delete().then(function() {
+    console.log("Army successfully deleted!");
+  }).catch(function(error) {
+    console.error("Error removing document: ", error);
+  });
+};

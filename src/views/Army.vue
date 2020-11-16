@@ -122,6 +122,29 @@
 
         </v-card>
       </v-col>
+
+      <v-col
+        cols="4"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+        >
+          <div class='center-container'>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="primary"
+              @click="pushToDeleteArmy(army.id)"
+            >
+                 <v-icon color='secondary'>mdi-delete-forever</v-icon>
+            </v-btn>
+          </div>
+
+        </v-card>
+      </v-col>
     </v-row>
 
 
@@ -221,7 +244,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { updateArmy } from "@/api/firebaseMethods";
+  import { updateArmy, deleteArmy } from "@/api/firebaseMethods";
 
 
   export default Vue.extend({
@@ -255,6 +278,10 @@
         this.$store.dispatch('setUserArmies', this.$auth.user.sub);
         this.dialog = false;
       },
+      async pushToDeleteArmy(id) {
+        await deleteArmy(id)
+        return this.$router.push({ name: 'Home' })
+      }
     },
 
     computed: {
