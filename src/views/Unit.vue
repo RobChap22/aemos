@@ -27,109 +27,9 @@
       </v-col>
     </v-row>
 
-    <v-row dense>
-      <v-col cols="12">
-        <v-card
-          color="info"
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Equipment:</v-list-item-title>
+    <UnitEquipmentCard :unit="unit"></UnitEquipmentCard>
 
-              <v-list-item-subtitle>{{ unit.equipment }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-
-      <v-col
-        v-if='unit.relics && unit.relics.length'
-        cols="12"
-      >
-        <v-card
-          color="info"
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Relic:</v-list-item-title>
-
-              <v-list-item-subtitle>{{ unit.relics.join(', ') }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-
-      <v-col
-        v-if='unit.warlordTraits && unit.warlordTraits.length'
-        cols="12"
-      >
-        <v-card
-          color="info"
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Warlord Trait:</v-list-item-title>
-
-              <v-list-item-subtitle>{{ unit.warlordTraits.join(', ') }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-
-      <v-col
-        v-if='unit.psychicPowers && unit.psychicPowers.length'
-        cols="12"
-      >
-        <v-card
-          color="info"
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Psychic Powers:</v-list-item-title>
-
-              <v-list-item-subtitle>{{ unit.psychicPowers.join(', ') }}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col cols='12'>
-        <v-card
-          color='info'
-          class="pa-2"
-        >
-          <div class='d-flex'>
-            <div class='center-container'>
-              <h3>{{rank}}</h3>
-            </div>
-            <v-spacer></v-spacer>
-            <div class='center-container'>
-              <p class="unit-supply-cost">{{ unit.experiencePoints }}</p>
-            </div>
-          </div>
-          <div>
-            <v-list-item v-if='unit.battleHonours && unit.battleHonours.length'>
-              <v-list-item-content>
-                <v-list-item-title>Battle Honours:</v-list-item-title>
-
-                <v-list-item-subtitle>{{ unit.battleHonours.join(', ') }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </div>
-          <div>
-            <v-list-item v-if='unit.battleScars && unit.battleScars.length'>
-              <v-list-item-content>
-                <v-list-item-title>Battlescars:</v-list-item-title>
-
-                <v-list-item-subtitle>{{ unit.battleScars.join(', ') }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
+    <UnitExperienceCard :unit="unit"></UnitExperienceCard>
 
     <v-row>
       <v-col
@@ -151,6 +51,29 @@
                  <v-icon color='secondary'>mdi-arrow-left-thick</v-icon>
             </v-btn>
           </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        cols="4"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+        >
+          <div class='center-container'>
+            <v-btn
+              class="mx-2"
+              fab
+              dark
+              color="primary"
+              @click="pushToDeleteUnit(unit.id)"
+            >
+                 <v-icon color='secondary'>mdi-delete-forever</v-icon>
+            </v-btn>
+          </div>
+
         </v-card>
       </v-col>
     </v-row>
@@ -240,14 +163,6 @@
                   ></v-text-field>
                 </v-col>
 
-                <v-col cols="12" md="6">
-                  <v-textarea
-                    name="input-7-1"
-                    label="Equipment"
-                    v-model='updateEquipment'
-                  ></v-textarea>
-                </v-col>
-
                 <v-col
                   cols="12"
                   sm="6"
@@ -261,6 +176,7 @@
                 </v-col>
 
                 <v-col
+                  v-if='unit.character'
                   cols="12"
                   sm="6"
                   md="3"
@@ -273,6 +189,7 @@
                 </v-col>
 
                 <v-col
+                  v-if='unit.character'
                   cols="12"
                   sm="6"
                   md="3"
@@ -285,13 +202,14 @@
                 </v-col>
 
                 <v-col
+                  v-if='unit.psyker'
                   cols="12"
                   sm="6"
                   md="3"
                 >
                   <v-text-field
-                    label="Add Psychic Power"
-                    v-model='addPsychicPower'
+                    label="Psychic Powers"
+                    v-model='updatePsychicPowers'
                     outlined
                   ></v-text-field>
                 </v-col>
@@ -321,7 +239,9 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { updateUnit } from "@/api/firebaseMethods";
+  import { updateUnit, deleteUnit } from "@/api/firebaseMethods";
+  import UnitExperienceCard from "@/components/UnitExperienceCard.vue";
+  import UnitEquipmentCard from "@/components/UnitEquipmentCard.vue";
 
 
   export default Vue.extend({
@@ -339,8 +259,14 @@
         updateSupplyCost: 0,
         addRelic: null,
         addWarlordTrait: null,
-        addPsychicPower: null,
+        updatePsychicPowers: '',
       }
+    },
+
+    components: {
+      UnitExperienceCard,
+      UnitEquipmentCard,
+
     },
 
     methods: {
@@ -363,6 +289,12 @@
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.dialog = false;
       },
+       async pushToDeleteUnit(id) {
+        const armyId = this.unit.armyRef;
+        console.log(armyId);
+        await deleteUnit(id);
+        return this.$router.push({ name: 'Army', params: { armyId } });
+      }
     },
 
     computed: {
@@ -388,6 +320,7 @@
 
     mounted() {
       this.updateEquipment = this.$store.getters.getUnitById(this.$route.params.id).equipment;
+      this.updatePsychicPowers = this.$store.getters.getUnitById(this.$route.params.id).psychicPowers;
       this.updateExperiencePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).experiencePoints, 10);
       this.updateCrusadePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).crusadePoints, 10);
       this.updateSupplyCost = parseInt(this.$store.getters.getUnitById(this.$route.params.id).supplyCost, 10);

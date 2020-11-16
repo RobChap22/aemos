@@ -21,6 +21,18 @@
 
             <v-text-field label='Equipment' v-model='formEquipment'></v-text-field>
 
+            <v-checkbox
+              v-model="formCharacter"
+              label="Character"
+            ></v-checkbox>
+
+            <v-checkbox
+              v-model="formPsyker"
+              label="Psyker"
+            ></v-checkbox>
+
+            <v-text-field v-if="formPsyker" label='Psychic Powers' v-model='formPsychicPowers'></v-text-field>
+
             <v-btn
               color='primary'
               @click='createNewUnit'
@@ -52,6 +64,9 @@
         formRole: '',
         formCost: null,
         formEquipment: '',
+        formCharacter: false,
+        formPsyker: false,
+        formPsychicPowers: '',
       }
     },
 
@@ -64,6 +79,9 @@
           armyId: this.$route.params.id,
           unitType: this.formUnitType,
           equipment: this.formEquipment,
+          character: this.formCharacter,
+          psyker: this.formPsyker,
+          psychicPowers: this.formPsychicPowers,
         });
         this.$store.dispatch('setArmyUnits', this.$route.params.id)
         return this.$router.push({ name: 'Unit', params: { id } });

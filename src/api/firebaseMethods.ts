@@ -75,12 +75,14 @@ export const readUnits = (id) => {
           equipment: doc.data().equipment,
           relics: doc.data().relics,
           unitType: doc.data().unitType,
-          warlordTrait: doc.data().warlordTrait,
+          warlordTraits: doc.data().warlordTraits,
           psychicPowers: doc.data().psychicPowers,
           experiencePoints: doc.data().experiencePoints,
           crusadePoints: doc.data().crusadePoints,
           battleHonours: doc.data().battleHonours,
           battleScars: doc.data().battleScars,
+          character: doc.data().character,
+          psyker: doc.data().psyker,
           roleImg: getUnitRoleImg(doc.data().role),
         });
         // console.log(doc.id, " => ", doc.data());
@@ -115,7 +117,7 @@ export const createArmy = ({name, faction, userId }) => {
 };
 
 
-export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment }) => {
+export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment, psyker, character, psychicPowers }) => {
   return db.collection("units")
     .add({
       name: name,
@@ -130,7 +132,9 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       battleScars: [],
       relics: [],
       warlordTraits: [],
-      psychicPowers: [],
+      psychicPowers: psychicPowers,
+      psyker: psyker,
+      character: character,
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -189,6 +193,14 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
 
 export const deleteArmy = (armyId) => {
   db.collection("armies").doc(armyId).delete().then(function() {
+    console.log("Army successfully deleted!");
+  }).catch(function(error) {
+    console.error("Error removing document: ", error);
+  });
+};
+
+export const deleteUnit = (unitId) => {
+  db.collection("units").doc(unitId).delete().then(function() {
     console.log("Army successfully deleted!");
   }).catch(function(error) {
     console.error("Error removing document: ", error);

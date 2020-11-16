@@ -43,7 +43,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols='4'>
+      <v-col cols='4' v-if='army.requisition'>
         <v-card color='info' class="d-flex align-center pa-2">
           <div>
             <h2>Req</h2>
