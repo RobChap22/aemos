@@ -50,11 +50,7 @@
 
     data () {
       return {
-        dialog: false,
-        updateExperiencePoints: 0,
-        updateCrusadePoints: 0,
-        addBattleHonour: null,
-        addBattleScar: null,
+        //
       }
     },
 
@@ -66,22 +62,7 @@
     },
 
     methods: {
-      async updateCurrentUnit() {
-        await updateUnit({
-          unitId: this.$route.params.id,
-          equipment: this.updateEquipment,
-          experiencePoints: this.updateExperiencePoints,
-          crusadePoints: this.updateCrusadePoints,
-          battleHonours: this.addBattleHonour,
-          battleScars: this.addBattleScar,
-          supplyCost: this.updateSupplyCost,
-          relics: this.addRelic,
-          warlordTraits: this.addWarlordTrait,
-          psychicPowers: this.addPsychicPower,
-        });
-        this.$store.dispatch('setArmyUnits', this.unit.armyRef);
-        this.dialog = false;
-      },
+      //
     },
 
     computed: {

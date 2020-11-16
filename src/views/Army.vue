@@ -165,7 +165,7 @@
               Update
             </v-btn>
           </template>
-          <v-card>
+          <v-card color='info'>
             <v-toolbar
               dark
               color="primary"
@@ -189,49 +189,66 @@
                 </v-btn>
               </v-toolbar-items>
             </v-toolbar>
+
             <v-form>
-              <p>requisition</p>
-              <number-input
-                v-model='updateRequisition'
-                :min="0"
-                :max="5"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Requisition</h3>
+                  <number-input
+                    v-model='updateRequisition'
+                    :min="0"
+                    :max="5"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
-              <p>supply limit</p>
-              <number-input
-                v-model='updateSupplyLimit'
-                :min="50"
-                :step="5"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Supply Limit</h3>
+                  <number-input
+                    v-model='updateSupplyLimit'
+                    :min="50"
+                    :step="5"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
-              <p>Battle tally</p>
-              <number-input
-                v-model='updateBattleTally'
-                :min="0"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Battle Tally</h3>
+                  <number-input
+                    v-model='updateBattleTally'
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
-              <p>Battles won</p>
-              <number-input
-                v-model='updateBattlesWon'
-                :min="0"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
 
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Battles Won</h3>
+                  <number-input
+                    v-model='updateBattlesWon'
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
             </v-form>
           </v-card>
         </v-dialog>

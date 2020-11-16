@@ -42,7 +42,6 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { updateUnit } from "@/api/firebaseMethods";
 
 
   export default Vue.extend({
@@ -50,17 +49,7 @@
 
     data () {
       return {
-        dialog: false,
-        keyTrick: 0,
-        updateEquipment: '',
-        updateExperiencePoints: 0,
-        updateCrusadePoints: 0,
-        addBattleHonour: null,
-        addBattleScar: null,
-        updateSupplyCost: 0,
-        addRelic: null,
-        addWarlordTrait: null,
-        addPsychicPower: null,
+        //
       }
     },
 
@@ -72,22 +61,7 @@
     },
 
     methods: {
-      async updateCurrentUnit() {
-        await updateUnit({
-          unitId: this.$route.params.id,
-          equipment: this.updateEquipment,
-          experiencePoints: this.updateExperiencePoints,
-          crusadePoints: this.updateCrusadePoints,
-          battleHonours: this.addBattleHonour,
-          battleScars: this.addBattleScar,
-          supplyCost: this.updateSupplyCost,
-          relics: this.addRelic,
-          warlordTraits: this.addWarlordTrait,
-          psychicPowers: this.addPsychicPower,
-        });
-        this.$store.dispatch('setArmyUnits', this.unit.armyRef);
-        this.dialog = false;
-      },
+      //
     },
   })
 </script>

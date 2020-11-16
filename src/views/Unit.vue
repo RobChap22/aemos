@@ -96,14 +96,12 @@
               Update
             </v-btn>
           </template>
-          <v-card>
+          <v-card color='info'>
             <v-toolbar
-              dark
               color="primary"
             >
               <v-btn
                 icon
-                dark
                 @click="dialog = false"
               >
                 <v-icon>mdi-close</v-icon>
@@ -112,7 +110,6 @@
               <v-spacer></v-spacer>
               <v-toolbar-items>
                 <v-btn
-                  dark
                   text
                   @click="updateCurrentUnit"
                 >
@@ -122,108 +119,95 @@
             </v-toolbar>
             <v-form>
 
-              <p>XP</p>
-              <number-input
-                v-model='updateExperiencePoints'
-                :min="0"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Experience Points</h3>
+                  <number-input
+                    v-model='updateExperiencePoints'
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
-              <p>Crusade points</p>
-              <number-input
-                v-model='updateCrusadePoints'
-                :min="0"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Crusade Points</h3>
+                  <number-input
+                    v-model='updateCrusadePoints'
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
-              <v-row>
-                <v-col cols="12" md="6">
-                  <v-textarea
-                    name="input-7-1"
-                    label="Equipment"
-                    v-model='updateEquipment'
-                  ></v-textarea>
-                </v-col>
+              <div class='center-container pt-4'>
+                <v-textarea
+                  label="Equipment"
+                  v-model='updateEquipment'
+                  outlined
+                ></v-textarea>
+              </div>
 
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="3"
-                >
-                  <v-text-field
-                    label="Add Battle Honour"
-                    v-model='addBattleHonour'
-                    outlined
-                  ></v-text-field>
-                </v-col>
+              <div class='center-container pt-4'>
+                <v-text-field
+                  label="Add Battle Honour"
+                  v-model='addBattleHonour'
+                  outlined
+                ></v-text-field>
+              </div>
 
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="3"
-                >
-                  <v-text-field
-                    label="Add Battlescar"
-                    v-model='addBattleScar'
-                    outlined
-                  ></v-text-field>
-                </v-col>
+              <div class='center-container pt-4'>
+                <v-text-field
+                  label="Add Battlescar"
+                  v-model='addBattleScar'
+                  outlined
+                ></v-text-field>
+              </div>
 
-                <v-col
-                  v-if='unit.character'
-                  cols="12"
-                  sm="6"
-                  md="3"
-                >
-                  <v-text-field
-                    label="Add Warlord Trait"
-                    v-model='addWarlordTrait'
-                    outlined
-                  ></v-text-field>
-                </v-col>
+              <div class='center-container pt-4'>
+                <v-text-field
+                  label="Add Warlord Trait"
+                  v-model='addWarlordTrait'
+                  outlined
+                ></v-text-field>
+              </div>
 
-                <v-col
-                  v-if='unit.character'
-                  cols="12"
-                  sm="6"
-                  md="3"
-                >
-                  <v-text-field
-                    label="Add Relic"
-                    v-model='addRelic'
-                    outlined
-                  ></v-text-field>
-                </v-col>
+              <div class='center-container pt-4'>
+                <v-text-field
+                  label="Add Relic"
+                  v-model='addRelic'
+                  outlined
+                ></v-text-field>
+              </div>
 
-                <v-col
-                  v-if='unit.psyker'
-                  cols="12"
-                  sm="6"
-                  md="3"
-                >
-                  <v-text-field
-                    label="Psychic Powers"
-                    v-model='updatePsychicPowers'
-                    outlined
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+              <div class='center-container pt-4'>
+                <v-text-field
+                  label="Psychic Powers"
+                  v-model='updatePsychicPowers'
+                  outlined
+                ></v-text-field>
+              </div>
 
-              <p>Power level</p>
-              <number-input
-                v-model='updateSupplyCost'
-                :min="0"
-                inline
-                center
-                controls
-                size="large"
-              ></number-input>
+              <div class='center-container pt-4'>
+                <div>
+                  <h3 class='text-center'>Power Level</h3>
+                  <number-input
+                    v-model='updateSupplyCost'
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    size="large"
+                  ></number-input>
+                </div>
+              </div>
 
 
             </v-form>
@@ -250,7 +234,6 @@
     data () {
       return {
         dialog: false,
-        keyTrick: 0,
         updateEquipment: '',
         updateExperiencePoints: 0,
         updateCrusadePoints: 0,
@@ -284,7 +267,7 @@
           supplyCost: this.updateSupplyCost,
           relics: this.addRelic,
           warlordTraits: this.addWarlordTrait,
-          psychicPowers: this.addPsychicPower,
+          psychicPowers: this.updatePsychicPowers,
         });
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.dialog = false;
@@ -300,21 +283,6 @@
     computed: {
       unit() {
         return this.$store.getters.getUnitById(this.$route.params.id)
-      },
-
-      rank() {
-        const xp = this.$store.getters.getUnitById(this.$route.params.id).experiencePoints
-        if (xp <= 5) {
-          return 'Battle-Ready';
-        } else if (xp > 5 && xp <= 15) {
-          return 'Blooded';
-        } else if (xp > 15 && xp <= 30) {
-          return 'Battle-Hardened';
-        } else if (xp > 30 && xp <= 50) {
-          return 'Heroic';
-        } else {
-          return 'Legendary';
-        }
       },
     },
 

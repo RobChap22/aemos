@@ -4,17 +4,23 @@
     <v-row>
       <v-col>
         <v-card color='info' class='pa-3'>
-          <v-form>
-            <v-text-field label='Name' v-model='formName'></v-text-field>
+          <v-form >
+
+            <v-text-field
+              label='Name'
+              v-model='formName'
+              required
+            ></v-text-field>
 
             <v-text-field label='Unit Type' v-model='formUnitType'></v-text-field>
 
             <v-autocomplete label='Battlefield Role' :items='$store.state.roles' v-model='formRole'></v-autocomplete>
 
             <v-text-field
-              label='Cost'
+              label='Power Level'
               v-model.number="formCost"
-              hide-details
+
+              :rules="rules"
               single-line
               type="number"
             />
@@ -35,6 +41,7 @@
 
             <v-btn
               color='primary'
+
               @click='createNewUnit'
             >
               Create
@@ -67,6 +74,7 @@
         formCharacter: false,
         formPsyker: false,
         formPsychicPowers: '',
+        // isValid: true,
       }
     },
 
@@ -86,7 +94,43 @@
         this.$store.dispatch('setArmyUnits', this.$route.params.id)
         return this.$router.push({ name: 'Unit', params: { id } });
       },
+
+      validateField () {
+        this.$refs.form.validate()
+      },
+    },
+
+    computed: {
+      army() {
+        return this.$store.getters.getArmyById(this.$route.params.id)
+      },
+      rules () {
+        const rules = []
+        console.log(this.formCost);
+        if (this.formCost) {
+          const rule =
+            v => v <= this.army.supplyCost || 'Power level exceeds supply limit.'
+          rules.push(rule)
+        }
+        if (this.formName) {
+          const rule =
+            v => !!v || 'This field must be completed.'
+          rules.push(rule)
+        }
+        return rules
+      },
+    },
+
+    watch: {
+      // match: 'validateField',
+      // max: 'validateField',
+      // model: 'validateField',
+      formCost: 'validateField',
+      formName: 'validateField',
     },
   })
 </script>
 
+
+// v-model="isValid"
+// :disabled="!isValid"
