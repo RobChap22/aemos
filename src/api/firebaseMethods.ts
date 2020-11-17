@@ -95,6 +95,7 @@ export const readUnits = (id) => {
           battleScars: doc.data().battleScars,
           character: doc.data().character,
           psyker: doc.data().psyker,
+          killTally: doc.data().killTally,
           roleImg: getUnitRoleImg(doc.data().role),
         });
         // console.log(doc.id, " => ", doc.data());
@@ -146,6 +147,7 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       psychicPowers: psychicPowers,
       psyker: psyker,
       character: character,
+      killTally: 0,
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -173,7 +175,7 @@ export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, batt
     });
 };
 
-export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars, supplyCost, relics, warlordTraits, psychicPowers }) => {
+export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints, battleHonours, battleScars, supplyCost, relics, warlordTraits, psychicPowers, killTally }) => {
   return db.collection("units").doc(unitId)
     .update({
       equipment: equipment,
@@ -185,6 +187,7 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
       relics: firebase.firestore.FieldValue.arrayUnion(relics),
       warlordTraits: firebase.firestore.FieldValue.arrayUnion(warlordTraits),
       supplyCost: supplyCost,
+      killTally: killTally,
     })
     .then(function() {
       console.log("Document successfully written!");

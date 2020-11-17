@@ -39,7 +39,21 @@
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
+
         <v-form>
+          <div class='center-container pt-4'>
+            <div>
+              <h3 class='text-center'>Kill Tally</h3>
+              <number-input
+                v-model='updateKillTally'
+                :min="0"
+                inline
+                center
+                controls
+                size="large"
+              ></number-input>
+            </div>
+          </div>
 
           <div class='center-container pt-4'>
             <div>
@@ -160,6 +174,7 @@
         addRelic: null,
         addWarlordTrait: null,
         updatePsychicPowers: '',
+        updateKillTally: 0,
       }
     },
 
@@ -183,6 +198,7 @@
           relics: this.addRelic,
           warlordTraits: this.addWarlordTrait,
           psychicPowers: this.updatePsychicPowers,
+          killTally: this.updateKillTally,
         });
         this.$store.dispatch('setArmyUnits', this.unit.armyRef);
         this.isDialogueOpen = false;
@@ -199,6 +215,7 @@
       this.updateExperiencePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).experiencePoints, 10);
       this.updateCrusadePoints = parseInt(this.$store.getters.getUnitById(this.$route.params.id).crusadePoints, 10);
       this.updateSupplyCost = parseInt(this.$store.getters.getUnitById(this.$route.params.id).supplyCost, 10);
+      this.updateKillTally = parseInt(this.$store.getters.getUnitById(this.$route.params.id).killTally, 10);
     },
   })
 </script>

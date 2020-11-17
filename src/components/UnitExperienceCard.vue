@@ -6,13 +6,26 @@
           color='info'
           class="pa-2"
         >
-          <div class='d-flex'>
+          <div class='d-flex hero-box justify-space-between' justify-space-between>
+            <div class='center-container'>
+              <v-list-item two-line>
+                <v-list-item-content>
+                  <v-list-item-title class="unit-supply-cost">{{ unit.killTally }}</v-list-item-title>
+                  <v-list-item-subtitle>Kills</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
             <div class='center-container'>
               <h3>{{rank}}</h3>
             </div>
-            <v-spacer></v-spacer>
+
             <div class='center-container'>
-              <p class="unit-supply-cost">{{ unit.experiencePoints }}</p>
+              <v-list-item two-line>
+                <v-list-item-content>
+                  <v-list-item-title class="unit-supply-cost text-right">{{ unit.experiencePoints }}</v-list-item-title>
+                  <v-list-item-subtitle class="text-right">Exp.</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </div>
           </div>
           <div>

@@ -30,9 +30,6 @@
             </v-list-item-content>
             <v-list-item-action-text>{{ army.battleTally }}</v-list-item-action-text>
           </v-list-item>
-
-
-
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Battles Won:</v-list-item-title>
@@ -66,9 +63,6 @@
         :key="i"
         cols="4"
       >
-
-
-
         <v-card
           color='info'
           class='unitCard'
@@ -84,7 +78,6 @@
           <div class='center-container'>
             <h4>{{ unit.name }}</h4>
           </div>
-
           <div class='card-unit-info'>
             <div class='crusade-points-display'>
               <h4>{{ unit.crusadePoints }}</h4>
@@ -96,7 +89,6 @@
               <p>Power</p>
             </div>
           </div>
-
         </v-card>
       </v-col>
 
@@ -119,10 +111,11 @@
                  <v-icon color='secondary'>mdi-plus</v-icon>
             </v-btn>
           </div>
-
         </v-card>
       </v-col>
+    </v-row>
 
+    <v-row>
       <v-col
         cols="4"
         align-self='center'
@@ -137,123 +130,42 @@
               fab
               dark
               color="primary"
-              @click="pushToDeleteArmy(army.id)"
+              @click="returnToHome"
             >
-                 <v-icon color='secondary'>mdi-delete-forever</v-icon>
+                 <v-icon color='secondary'>mdi-arrow-left-thick</v-icon>
             </v-btn>
           </div>
+        </v-card>
+      </v-col>
 
+      <v-col
+        cols="4"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+        >
+          <div class='center-container'>
+            <UpdateArmy :army="army"></UpdateArmy>
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col
+        cols="4"
+        align-self='center'
+      >
+        <v-card
+          flat
+          color='secondary'
+        >
+          <div class='center-container'>
+            <DeleteArmy :army="army"></DeleteArmy>
+          </div>
         </v-card>
       </v-col>
     </v-row>
-
-
-    <template>
-      <v-row justify="center">
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              v-bind="attrs"
-              v-on="on"
-            >
-              Update
-            </v-btn>
-          </template>
-          <v-card color='info'>
-            <v-toolbar
-              dark
-              color="primary"
-            >
-              <v-btn
-                icon
-                dark
-                @click="dialog = false"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-              <v-toolbar-title>Settings</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-btn
-                  dark
-                  text
-                  @click="updateCurrentArmy"
-                >
-                  Save
-                </v-btn>
-              </v-toolbar-items>
-            </v-toolbar>
-
-            <v-form>
-              <div class='center-container pt-4'>
-                <div>
-                  <h3 class='text-center'>Requisition</h3>
-                  <number-input
-                    v-model='updateRequisition'
-                    :min="0"
-                    :max="5"
-                    inline
-                    center
-                    controls
-                    size="large"
-                  ></number-input>
-                </div>
-              </div>
-
-              <div class='center-container pt-4'>
-                <div>
-                  <h3 class='text-center'>Supply Limit</h3>
-                  <number-input
-                    v-model='updateSupplyLimit'
-                    :min="50"
-                    :step="5"
-                    inline
-                    center
-                    controls
-                    size="large"
-                  ></number-input>
-                </div>
-              </div>
-
-              <div class='center-container pt-4'>
-                <div>
-                  <h3 class='text-center'>Battle Tally</h3>
-                  <number-input
-                    v-model='updateBattleTally'
-                    :min="0"
-                    inline
-                    center
-                    controls
-                    size="large"
-                  ></number-input>
-                </div>
-              </div>
-
-
-              <div class='center-container pt-4'>
-                <div>
-                  <h3 class='text-center'>Battles Won</h3>
-                  <number-input
-                    v-model='updateBattlesWon'
-                    :min="0"
-                    inline
-                    center
-                    controls
-                    size="large"
-                  ></number-input>
-                </div>
-              </div>
-            </v-form>
-          </v-card>
-        </v-dialog>
-      </v-row>
-    </template>
 
   </v-container>
 </template>
@@ -262,6 +174,8 @@
 <script lang="ts">
   import Vue from 'vue'
   import { updateArmy, deleteArmy } from "@/api/firebaseMethods";
+  import UpdateArmy from "@/components/UpdateArmy.vue";
+  import DeleteArmy from "@/components/DeleteArmy.vue";
 
 
   export default Vue.extend({
@@ -269,12 +183,13 @@
 
     data () {
       return {
-        dialog: false,
-        updateRequisition: 0,
-        updateSupplyLimit: 0,
-        updateBattleTally: 0,
-        updateBattlesWon: 0,
+        //
       }
+    },
+
+    components: {
+      UpdateArmy,
+      DeleteArmy,
     },
 
     methods: {
@@ -295,10 +210,9 @@
         this.$store.dispatch('setUserArmies', this.$auth.user.sub);
         this.dialog = false;
       },
-      async pushToDeleteArmy(id) {
-        await deleteArmy(id)
-        return this.$router.push({ name: 'Home' })
-      }
+      returnToHome() {
+        return this.$router.push({ name: 'Home' });
+      },
     },
 
     computed: {
@@ -317,14 +231,9 @@
 
     mounted() {
       this.$store.dispatch('setArmyUnits', this.$route.params.id);
-      this.updateRequisition = parseInt(this.$store.getters.getArmyById(this.$route.params.id).requisition, 10);
-      this.updateSupplyLimit = parseInt(this.$store.getters.getArmyById(this.$route.params.id).supplyLimit, 10);
-      this.updateBattleTally = parseInt(this.$store.getters.getArmyById(this.$route.params.id).battleTally, 10);
-      this.updateBattlesWon = parseInt(this.$store.getters.getArmyById(this.$route.params.id).battlesWon, 10);
     },
   })
 </script>
-
 
 <style>
   .fraction {
@@ -334,46 +243,37 @@
     transform: rotate(16deg);
     font-size: 1.8rem;
   }
-
   .denominator,
   .numerator {
     transform: rotate(-16deg);
   }
-
   .denominator {
     display: flex;
     align-items: flex-end;
   }
-
   .divide {
     font-size: 3rem;
   }
-
   .center-container {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .img-box {
     padding: 7px;
   }
-
-
   .card-unit-info{
     display: flex;
     justify-content: space-between;
     padding-left: 6px;
     padding-right: 6px;
   }
-
   .crusade-points-display {
     opacity: 0.5;
   }
   .crusade-points-display p {
     font-size: 0.8em;
   }
-
   .power-cost-display {
     padding-left: 1em;
   }
@@ -383,11 +283,9 @@
   .power-cost-display p {
     font-size: 0.8em;
   }
-
   #new-unit-card-text {
     color: #eb5e28;
   }
-
   .divide {
     color: #eb5e28;
   }

@@ -38,15 +38,25 @@
 
             <v-text-field v-if="formPsyker" label='Psychic Powers' v-model='formPsychicPowers'></v-text-field>
 
+          </v-form>
+
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              @click="returnToArmy"
+            >
+              Cancel
+            </v-btn>
+
+            <v-spacer></v-spacer>
+
             <v-btn
               color='primary'
-
               @click='createNewUnit'
             >
               Create
             </v-btn>
-
-          </v-form>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -92,6 +102,9 @@
         });
         this.$store.dispatch('setArmyUnits', this.$route.params.id)
         return this.$router.push({ name: 'Unit', params: { id } });
+      },
+      returnToArmy() {
+        return this.$router.push({ name: 'Army', id: this.$route.params.id });
       },
     },
 
