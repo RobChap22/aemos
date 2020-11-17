@@ -19,8 +19,7 @@
             <v-text-field
               label='Power Level'
               v-model.number="formCost"
-
-              :rules="rules"
+              :error-messages="costRuleErrorMessages"
               single-line
               type="number"
             />
@@ -94,39 +93,18 @@
         this.$store.dispatch('setArmyUnits', this.$route.params.id)
         return this.$router.push({ name: 'Unit', params: { id } });
       },
-
-      validateField () {
-        this.$refs.form.validate()
-      },
     },
 
     computed: {
       army() {
         return this.$store.getters.getArmyById(this.$route.params.id)
       },
-      rules () {
-        const rules = []
-        console.log(this.formCost);
-        if (this.formCost) {
-          const rule =
-            v => v <= this.army.supplyCost || 'Power level exceeds supply limit.'
-          rules.push(rule)
+      costRuleErrorMessages() {
+        if (this.formCost > this.army.supplyLimit) {
+          return ['Power level exceeds supply limit.'];
         }
-        if (this.formName) {
-          const rule =
-            v => !!v || 'This field must be completed.'
-          rules.push(rule)
-        }
-        return rules
+        return [];
       },
-    },
-
-    watch: {
-      // match: 'validateField',
-      // max: 'validateField',
-      // model: 'validateField',
-      formCost: 'validateField',
-      formName: 'validateField',
     },
   })
 </script>
