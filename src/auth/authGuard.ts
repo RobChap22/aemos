@@ -6,12 +6,10 @@ export const authGuard = (to, from, next) => {
   const fn = () => {
     // If the user is authenticated, continue with the route
     if (authService.isAuthenticated) {
-    console.log('authanticated');
       return next();
     }
 
     // Otherwise, log in
-    console.log('unauthanticated');
     authService.loginWithRedirect({ appState: { targetUrl: to.fullPath } });
   };
 
