@@ -85,7 +85,7 @@ export default Vue.extend({
   methods: {
     logout() {
       console.log('fired')
-      this.useAuth0.logout({
+      this.$auth.logout({
         returnTo: 'https://nervous-knuth-431792.netlify.app',
         client_id: 'w3I4k0TPJTRaRcCAYJQla2mZycp7ypcx'
       });

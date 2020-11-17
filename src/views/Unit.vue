@@ -171,7 +171,7 @@
                 ></v-text-field>
               </div>
 
-              <div class='center-container pt-4'>
+              <div class='center-container pt-4' v-if='unit.character'>
                 <v-text-field
                   label="Add Warlord Trait"
                   v-model='addWarlordTrait'
@@ -179,7 +179,7 @@
                 ></v-text-field>
               </div>
 
-              <div class='center-container pt-4'>
+              <div class='center-container pt-4' v-if='unit.character'>
                 <v-text-field
                   label="Add Relic"
                   v-model='addRelic'
@@ -187,7 +187,7 @@
                 ></v-text-field>
               </div>
 
-              <div class='center-container pt-4'>
+              <div class='center-container pt-4' v-if='unit.psyker'>
                 <v-text-field
                   label="Psychic Powers"
                   v-model='updatePsychicPowers'

@@ -18,21 +18,16 @@ const routes: Array<RouteConfig> = [
     beforeEnter: authGuard,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/army/:id',
     name: 'Army',
     component: () => import('../views/Army.vue'),
-    // beforeEnter: authGuard,
+    beforeEnter: authGuard,
   },
   {
     path: '/unit/:id',
     name: 'Unit',
     component: () => import('../views/Unit.vue'),
-    // beforeEnter: authGuard,
+    beforeEnter: authGuard,
   },
   {
     path: '/createarmy',
