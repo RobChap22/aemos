@@ -1,36 +1,48 @@
 import { firebase, db } from "@/api/firebaseInit";
 
 
+// the following two functions return imgpaths for faction and role
 function getUnitRoleImg(role) {
   if (role === 'HQ') {
     return "/HQ.png";
-
   } else if (role === 'Troops') {
     return "/Troops.png";
-
   } else if (role === 'Elite') {
     return "/Elite.png";
-
   } else if (role === 'Fast Attack') {
     return "/fast-attack.png";
-
   } else if (role === 'Heavy Support') {
     return "/heavy-support.png";
-
   } else if (role === 'Flyer') {
     return "/flyer.png";
-
   } else if (role === 'Lord of War') {
     return "/lord-of-war.png";
-
   } else if (role === 'Dedicated Transport') {
     return "/dedicated-transport.png";
-
   } else {
     return '';
   }
 }
 
+function getFactionImg(faction) {
+  if (faction === 'Imperium') {
+    return "/imperium.svg";
+  } else if (faction === 'Chaos') {
+    return "/chaos.svg";
+  } else if (faction === 'Aeldari') {
+    return "/eldar.svg";
+  } else if (faction === 'Tyranids') {
+    return "/tyranid.svg";
+  } else if (faction === 'Orks') {
+    return "/orks.svg";
+  } else if (faction === 'Necrons') {
+    return "/necrons.svg";
+  } else if (faction === 'Tau Empire') {
+    return "/tau.svg";
+  } else {
+    return '';
+  }
+}
 
 
 export const readArmies = (userId) => {
@@ -48,6 +60,7 @@ export const readArmies = (userId) => {
           battlesWon: doc.data().battlesWon,
           battleTally: doc.data().battleTally,
           supplyLimit: doc.data().supplyLimit,
+          factionImg: getFactionImg(doc.data().faction),
         });
         // console.log(doc.id, " => ", doc.data());
       });
@@ -57,7 +70,6 @@ export const readArmies = (userId) => {
       console.log("Error getting documents: ", error);
     });
 };
-
 
 export const readUnits = (id) => {
   const units = [];
@@ -116,7 +128,6 @@ export const createArmy = ({name, faction, userId }) => {
     });
 };
 
-
 export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment, psyker, character, psychicPowers }) => {
   return db.collection("units")
     .add({
@@ -144,9 +155,6 @@ export const createUnit = ({ name, role, supplyCost, armyId, unitType, equipment
       console.error("Error writing document: ", error);
     });
 };
-
-
-
 
 
 export const updateArmy = ({ armyId, requisition, supplyLimit, battleTally, battlesWon }) => {
@@ -185,10 +193,6 @@ export const updateUnit = ({ unitId, equipment, experiencePoints, crusadePoints,
       console.error("Error writing document: ", error);
     });
 };
-
-
-
-
 
 
 export const deleteArmy = (armyId) => {

@@ -195,7 +195,7 @@
                 ></v-text-field>
               </div>
 
-              <div class='center-container pt-4'>
+              <div class='center-container py-4'>
                 <div>
                   <h3 class='text-center'>Power Level</h3>
                   <number-input

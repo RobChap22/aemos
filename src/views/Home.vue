@@ -13,11 +13,15 @@
           color='info'
           @click='pushToArmy(army.id)'
         >
-          <div>
+          <div class='center-container img-box'>
+            <v-img
+              max-height='62'
+              max-width='62'
+              :src='army.factionImg'
+            ></v-img>
           </div>
-          <div class='army-content text-center'>
-            <h2>{{ army.name }}</h2>
-            <h3>{{ army.faction }}</h3>
+          <div class='center-container'>
+            <h4>{{ army.name }}</h4>
           </div>
 
         </v-card>
@@ -45,8 +49,6 @@
         </v-card>
       </v-col>
     </v-row>
-
-
 
   </v-container>
 </template>
@@ -90,6 +92,10 @@ export default Vue.extend({
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .img-box {
+    padding: 7px;
   }
 
 </style>
